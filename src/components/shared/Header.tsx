@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { NavItem } from '../types';
-import { ExtinctMuffinLogo } from './ExtinctMuffinLogo';
+import { NavItem } from '../../types';
+import { ExtinctMuffinLogo } from '../extinctmuffin/ExtinctMuffinLogo';
 
 interface HeaderProps {
   isScrolled: boolean;

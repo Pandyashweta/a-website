@@ -4,15 +4,18 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
+import { motion, AnimatePresence } from 'motion/react';
+import { Sun, Moon } from 'lucide-react';
+import { Header } from './components/shared/Header';
+import { Footer } from './components/shared/Footer';
 import { BlankCanvas } from './components/BlankCanvas';
-import { LinkModal } from './components/LinkModal';
-import { BackgroundVideo } from './components/BackgroundVideo';
+import { LinkModal } from './components/shared/LinkModal';
+import { SkyBackground } from './components/shared/SkyBackground';
 import { NavItem, SocialItem } from './types';
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isNight, setIsNight] = useState(true);
   const [activeModalItem, setActiveModalItem] = useState<{
     title: string;
     type: 'nav' | 'social';
@@ -110,8 +113,34 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0A0A0B] text-[#D1D1D1] font-sans antialiased selection:bg-[#222226] selection:text-white relative overflow-x-hidden">
-      {/* AMBIENT BACKGROUND VIDEO / ANIMATION WITH DYNAMIC THEME DUAL SCENARIOS */}
-      <BackgroundVideo isScrolled={isScrolled} />
+      {/* AMBIENT SKY BACKGROUND ANIMATION */}
+      <SkyBackground isNight={isNight} isScrolled={isScrolled} />
+
+      {/* DAY/NIGHT CELESTIAL TOGGLE SWITCH */}
+      <AnimatePresence>
+        {isScrolled && (
+          <motion.button
+            key="day-night-toggle"
+            onClick={() => setIsNight(!isNight)}
+            className="fixed bottom-6 right-6 sm:right-12 z-50 p-3 rounded-full bg-[#16161A]/85 backdrop-blur-md border border-white/10 hover:border-white/20 text-white cursor-pointer pointer-events-auto shadow-[0_4px_24px_rgba(0,0,0,0.4)] flex items-center justify-center select-none"
+            title={`Switch to ${isNight ? 'Day' : 'Night'} Mode`}
+            initial={{ opacity: 0, scale: 0.8, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 15 }}
+            whileHover={{ scale: 1.1, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+          >
+            <div className="relative w-5 h-5 flex items-center justify-center">
+              {isNight ? (
+                <Sun className="w-5 h-5 text-amber-400 fill-amber-400/20 animate-[spin_10s_linear_infinite]" />
+              ) : (
+                <Moon className="w-5 h-5 text-indigo-300 fill-indigo-300/10" />
+              )}
+            </div>
+          </motion.button>
+        )}
+      </AnimatePresence>
 
       {/* HEADER */}
       <Header

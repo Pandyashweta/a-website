@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { SocialItem } from '../types';
+import { SocialItem } from '../../types';
 import { SolidIcon } from './SocialIcons';
 
 interface FooterProps {

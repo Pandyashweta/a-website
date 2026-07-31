@@ -8,7 +8,7 @@ interface LinkModalProps {
   activeItem: {
     title: string;
     type: 'nav' | 'social';
-    context: 'skxie' | 'extinctmuffine';
+    context: 'skxie' | 'extinctmuffin';
     url: string;
   } | null;
   onSaveUrl?: (newUrl: string) => void;
