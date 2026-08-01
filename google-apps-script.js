@@ -57,19 +57,31 @@ function doPost(e) {
     sheet.appendRow([timestamp, name, email, message]);
     
     // Send email notification
+    var htmlBody = 
+      "<div style='font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif; max-width: 550px; margin: 0 auto; padding: 24px; border: 1px solid #eaeaea; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.03);'>" +
+        "<div style='border-bottom: 1px solid #eaeaea; padding-bottom: 16px; margin-bottom: 20px;'>" +
+          "<h2 style='color: #111111; font-size: 20px; font-weight: 600; margin: 0; letter-spacing: -0.02em;'>New Contact Message</h2>" +
+          "<p style='color: #666666; font-size: 13px; margin: 4px 0 0 0;'>Submitted from your website contact form</p>" +
+        "</div>" +
+        "<div style='margin-bottom: 20px;'>" +
+          "<div style='margin-bottom: 10px;'><span style='color: #888888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; display: block;'>Name</span><strong style='color: #111111; font-size: 14px; font-weight: 500;'>" + name + "</strong></div>" +
+          "<div style='margin-bottom: 10px;'><span style='color: #888888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; display: block;'>Email</span><a href='mailto:" + email + "' style='color: #0070f3; font-size: 14px; text-decoration: none; font-weight: 500;'>" + email + "</a></div>" +
+          "<div style='margin-bottom: 10px;'><span style='color: #888888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; display: block;'>Date</span><span style='color: #111111; font-size: 14px;'>" + timestamp.toLocaleString() + "</span></div>" +
+        "</div>" +
+        "<div style='background-color: #fafafa; padding: 16px; border-radius: 8px; border: 1px solid #eaeaea; margin-bottom: 24px;'>" +
+          "<span style='color: #888888; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 8px;'>Message</span>" +
+          "<div style='color: #333333; font-size: 14px; line-height: 1.6; white-space: pre-wrap; word-break: break-word;'>" + message + "</div>" +
+        "</div>" +
+        "<div style='border-top: 1px solid #eaeaea; padding-top: 14px; font-size: 11px; color: #888888; text-align: center;'>" +
+          "This submission has been logged automatically in your Google Sheet." +
+        "</div>" +
+      "</div>";
+
     MailApp.sendEmail({
       to: DESTINATION_EMAIL,
-      subject: "📩 New Website Message from: " + name,
+      subject: "📩 Web Message from " + name,
       replyTo: email,
-      body: "Hello skxie,\n\nYou have received a new message from the contact form on your website.\n\n" +
-            "--------------------------------------------------\n" +
-            "Name: " + name + "\n" +
-            "Email: " + email + "\n" +
-            "Date: " + timestamp.toString() + "\n" +
-            "--------------------------------------------------\n\n" +
-            "Message:\n" + message + "\n\n" +
-            "--------------------------------------------------\n" +
-            "Note: This entry has also been logged in your Google Sheet."
+      htmlBody: htmlBody
     });
     
     return ContentService.createTextOutput(JSON.stringify({ result: "success" }))
