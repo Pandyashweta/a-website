@@ -43,7 +43,7 @@ export const Footer: React.FC<FooterProps> = ({
       </div>
 
       {/* Copyright Notice (Centered) */}
-      <div className="pointer-events-auto text-[9px] sm:text-[10px] text-zinc-500 tracking-wider font-light hidden sm:block select-none">
+      <div className="pointer-events-auto text-[10px] sm:text-[11px] text-zinc-400 tracking-wider font-medium hidden sm:block select-none">
         &copy; {new Date().getFullYear()} skxie. All Rights Reserved.
       </div>
 
@@ -52,40 +52,40 @@ export const Footer: React.FC<FooterProps> = ({
         {onPrivacyClick && (
           <button
             onClick={onPrivacyClick}
-            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-medium text-[#AAAAAA] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#CCCCCC] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
           >
             Privacy Policy
           </button>
         )}
         {onPrivacyClick && onTermsClick && (
-          <span className="text-zinc-700 text-[9px] sm:text-[10px] select-none">|</span>
+          <span className="text-zinc-600 text-[10px] sm:text-[11px] select-none">|</span>
         )}
         {onTermsClick && (
           <button
             onClick={onTermsClick}
-            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-medium text-[#AAAAAA] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#CCCCCC] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
           >
             Terms
           </button>
         )}
         {onTermsClick && onFaqsClick && (
-          <span className="text-zinc-700 text-[9px] sm:text-[10px] select-none">|</span>
+          <span className="text-zinc-600 text-[10px] sm:text-[11px] select-none">|</span>
         )}
         {onFaqsClick && (
           <button
             onClick={onFaqsClick}
-            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-medium text-[#AAAAAA] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#CCCCCC] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
           >
             FAQs
           </button>
         )}
         {onFaqsClick && onNewsletterClick && (
-          <span className="text-zinc-700 text-[9px] sm:text-[10px] select-none">|</span>
+          <span className="text-zinc-600 text-[10px] sm:text-[11px] select-none">|</span>
         )}
         {onNewsletterClick && (
           <button
             onClick={onNewsletterClick}
-            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-medium text-[#AAAAAA] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#CCCCCC] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
           >
             Newsletter
           </button>
