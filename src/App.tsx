@@ -72,6 +72,8 @@ export default function App() {
         skxieSocials={skxieSocials}
         onPrivacyClick={() => setCurrentView('privacy')}
         onTermsClick={() => setCurrentView('terms')}
+        onFaqsClick={() => setCurrentView('faqs')}
+        onNewsletterClick={() => setCurrentView('newsletter')}
       />
     </div>
   );
