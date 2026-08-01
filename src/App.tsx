@@ -9,6 +9,7 @@ import { NewsletterPage } from './components/skxie/NewsletterPage';
 import { FaqsPage } from './components/skxie/FaqsPage';
 import { PrivacyPage } from './components/skxie/PrivacyPage';
 import { TermsPage } from './components/skxie/TermsPage';
+import { CookieBanner } from './components/shared/CookieBanner';
 import { NavItem, SocialItem } from './types';
 
 export default function App() {
@@ -87,6 +88,9 @@ export default function App() {
         onFaqsClick={() => setCurrentView('faqs')}
         onNewsletterClick={() => setCurrentView('newsletter')}
       />
+
+      {/* COOKIE CONSENT BANNER */}
+      <CookieBanner onNavigateToPrivacy={() => setCurrentView('privacy')} />
     </div>
   );
 }
