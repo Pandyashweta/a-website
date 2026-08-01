@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header } from './components/shared/Header';
 import { Footer } from './components/shared/Footer';
 import { BlankCanvas } from './components/BlankCanvas';
@@ -14,6 +14,20 @@ import { NavItem, SocialItem } from './types';
 export default function App() {
   const [currentView, setCurrentView] = useState<'home' | 'about' | 'faqs' | 'contact' | 'newsletter' | 'privacy' | 'terms'>('home');
 
+  // Dynamic Browser Tab Titles for SEO and User Experience
+  useEffect(() => {
+    const titleMap: Record<typeof currentView, string> = {
+      home: 'skxie — Digital Novelist & Storyteller',
+      about: 'About — skxie',
+      faqs: 'FAQs — skxie',
+      contact: 'Contact — skxie',
+      newsletter: 'Newsletter — skxie',
+      privacy: 'Privacy Policy — skxie',
+      terms: 'Terms & Conditions — skxie',
+    };
+    document.title = titleMap[currentView] || 'skxie';
+  }, [currentView]);
+
   // Navigation items for skxie: books, about, contact
   const [navItems] = useState<NavItem[]>([
     { id: 'books', label: 'books', url: 'https://books.skxie.com' },
@@ -23,7 +37,7 @@ export default function App() {
 
   // Social Links for skxie: Insta, discord, email, amazon, goodreads, wattpad, stck-me
   const [skxieSocials] = useState<SocialItem[]>([
-    { id: 'sk-insta', name: 'Instagram', icon: 'instagram', url: 'https://instagram.com/skxie' },
+    { id: 'sk-insta', name: 'Instagram', icon: 'instagram', url: 'https://instagram.com/skxielol' },
     { id: 'sk-discord', name: 'Discord', icon: 'discord', url: 'https://discord.gg/skxie' },
     { id: 'sk-email', name: 'Email', icon: 'email', url: 'mailto:skxie@contact.com' },
     { id: 'sk-amazon', name: 'Amazon', icon: 'amazon', url: 'https://amazon.com/author/skxie' },

@@ -13,7 +13,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ isVisible }) => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="w-full max-w-2xl mx-auto min-h-screen pt-28 pb-32 px-6 flex flex-col justify-start relative z-10 select-none"
+      className="w-full max-w-5xl mx-auto min-h-screen pt-28 pb-32 px-6 flex flex-col justify-start relative z-10 select-none"
     >
       <div className="space-y-6">
         <div className="space-y-2">
@@ -25,7 +25,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ isVisible }) => {
           </p>
         </div>
 
-        <div className="text-zinc-400 text-xs leading-relaxed space-y-4 font-light text-justify max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin">
+        <div className="text-zinc-400 text-xs sm:text-sm leading-relaxed space-y-4 font-light text-justify">
           <p>
             Welcome to <strong>Skxie</strong> ("we," "our," or "us"). Your privacy is important to us. This Privacy Policy explains what information we collect, how we use it, and your rights when you visit our website.
           </p>

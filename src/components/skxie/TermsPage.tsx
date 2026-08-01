@@ -13,7 +13,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible }) => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="w-full max-w-2xl mx-auto min-h-screen pt-28 pb-32 px-6 flex flex-col justify-start relative z-10 select-none"
+      className="w-full max-w-5xl mx-auto min-h-screen pt-28 pb-32 px-6 flex flex-col justify-start relative z-10 select-none"
     >
       <div className="space-y-6">
         <div className="space-y-2">
@@ -25,7 +25,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible }) => {
           </p>
         </div>
 
-        <div className="text-zinc-400 text-xs leading-relaxed space-y-4 font-light text-justify max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin">
+        <div className="text-zinc-400 text-xs sm:text-sm leading-relaxed space-y-4 font-light text-justify">
           <p>
             Welcome to <strong>Skxie</strong> ("Website," "we," "our," or "us"). By accessing or using this website, you agree to these Terms & Conditions. If you do not agree with these terms, please do not use this website.
           </p>
