@@ -16,4 +16,12 @@
 .font-careera-script {
   font-family: 'Pacifico', 'Grand Hotel', 'Yellowtail', 'Satisfy', cursive;
 }
+/* Hide scrollbar globally but preserve scrolling functionality */
+::-webkit-scrollbar {
+  display: none;
+}
 
+html, body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
