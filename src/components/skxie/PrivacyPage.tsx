@@ -234,9 +234,6 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ isVisible }) => {
             <p className="mt-1">
               <strong>Email:</strong> <a href="mailto:skxielol@gmail.com" className="text-white hover:underline">skxielol@gmail.com</a>
             </p>
-            <p>
-              <strong>Website:</strong> <a href="https://skxie.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">https://skxie.vercel.app/</a>
-            </p>
           </div>
         </div>
       </div>
