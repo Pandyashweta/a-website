@@ -9,12 +9,16 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ isVisible }) => {
   if (!isVisible) return null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="w-full max-w-5xl mx-auto min-h-screen pt-28 pb-32 px-6 flex flex-col justify-start relative z-10 select-none"
-    >
+    <>
+      {/* Top Gradient Fade to hide text scrolling under transparent header */}
+      <div className="fixed top-0 left-0 right-0 h-28 bg-gradient-to-b from-[#0A0A0B] via-[#0A0A0B]/95 to-transparent z-40 pointer-events-none" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="w-full max-w-5xl mx-auto min-h-screen pt-28 pb-32 px-6 flex flex-col justify-start relative z-10 select-none"
+      >
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-4xl font-light font-serif-italic italic text-white">
@@ -237,5 +241,6 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ isVisible }) => {
         </div>
       </div>
     </motion.div>
+  </>
   );
 };

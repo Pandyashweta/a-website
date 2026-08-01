@@ -10,9 +10,9 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ navItems, onNavClick, onLogoClick }) => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 px-6 sm:px-12 flex items-center justify-between bg-[#0A0A0B]/85 backdrop-blur-md border-b border-[#222228]/30">
+    <header className="fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 px-6 sm:px-12 flex items-center justify-between bg-transparent border-none pointer-events-none">
       {/* LEFT SIDE CORNER */}
-      <div className="flex items-center">
+      <div className="flex items-center pointer-events-auto">
         <button
           onClick={onLogoClick}
           className="hover:opacity-80 active:scale-95 transition-all focus:outline-none cursor-pointer p-1"
@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems, onNavClick, onLogoClic
       </div>
 
       {/* RIGHT SIDE CORNER */}
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-end pointer-events-auto">
         <nav className="flex items-center space-x-6 sm:space-x-10">
           {navItems.map((item) => {
             if (item.id === 'about' || item.id === 'faqs' || item.id === 'contact' || item.id === 'newsletter') {
