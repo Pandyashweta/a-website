@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 
@@ -9,9 +11,18 @@ export const NewsletterPage: React.FC<NewsletterPageProps> = ({ isVisible }) => 
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail) {
+      try {
+        await fetch('/api/newsletter/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: newsletterEmail }),
+        });
+      } catch (err) {
+        console.error(err);
+      }
       setNewsletterSubscribed(true);
       setTimeout(() => {
         setNewsletterEmail('');

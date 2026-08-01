@@ -1,5 +1,5 @@
 import React from 'react';
-import { SocialItem } from '../../types';
+import { SocialItem } from '@/types';
 import { SolidIcon } from './SocialIcons';
 
 interface FooterProps {

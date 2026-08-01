@@ -1,10 +1,10 @@
 import React from 'react';
-import { NavItem } from '../../types';
-import skxieLogo from '../../../assets/skxie.png';
+import { NavItem } from '@/types';
+import skxieLogo from '@/assets/skxie.png';
 
 interface HeaderProps {
   navItems: NavItem[];
-  onNavClick: (id: 'about' | 'faqs' | 'contact' | 'newsletter') => void;
+  onNavClick: (item: NavItem) => void;
   onLogoClick: () => void;
 }
 
@@ -19,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ navItems, onNavClick, onLogoClic
           aria-label="Home"
         >
           <img
-            src={skxieLogo}
+            src={skxieLogo.src}
             alt="skxie logo"
             width="160"
             height="40"
@@ -32,11 +32,11 @@ export const Header: React.FC<HeaderProps> = ({ navItems, onNavClick, onLogoClic
       <div className="flex items-center justify-end pointer-events-auto">
         <nav className="flex items-center space-x-6 sm:space-x-10">
           {navItems.map((item) => {
-            if (item.id === 'about' || item.id === 'faqs' || item.id === 'contact' || item.id === 'newsletter') {
+            if (item.url.startsWith('/')) {
               return (
                 <button
                   key={item.id}
-                  onClick={() => onNavClick(item.id as 'about' | 'faqs' | 'contact' | 'newsletter')}
+                  onClick={() => onNavClick(item)}
                   className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] font-medium text-[#AAAAAA] hover:text-white transition-colors duration-300 whitespace-nowrap cursor-pointer drop-shadow-sm focus:outline-none"
                 >
                   {item.label}
