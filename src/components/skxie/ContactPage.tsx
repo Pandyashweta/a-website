@@ -11,7 +11,9 @@ export const ContactPage: React.FC<ContactPageProps> = ({ isVisible }) => {
   const [contactEmail, setContactEmail] = useState('');
   const [contactMessage, setContactMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [contactSubmitted, setContactSubmitted] = useState(() => {
+    return typeof window !== 'undefined' && sessionStorage.getItem('skxie_contact_submitted') === 'true';
+  });
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const handleContactSubmit = async (e: React.FormEvent) => {
@@ -41,14 +43,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({ isVisible }) => {
           });
         }
 
+        sessionStorage.setItem('skxie_contact_submitted', 'true');
         setContactSubmitted(true);
         setContactName('');
         setContactEmail('');
         setContactMessage('');
-
-        setTimeout(() => {
-          setContactSubmitted(false);
-        }, 5000);
       } catch (err) {
         console.error("Form submission error:", err);
         setSubmitError("Failed to send message. Please try again or email directly.");
@@ -103,7 +102,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({ isVisible }) => {
             </div>
             <button
               type="button"
-              onClick={() => setContactSubmitted(false)}
+              onClick={() => {
+                sessionStorage.removeItem('skxie_contact_submitted');
+                setContactSubmitted(false);
+              }}
               className="pt-2 text-[11px] uppercase tracking-[0.2em] font-medium text-zinc-400 hover:text-white transition-colors cursor-pointer"
             >
               Send Another Message

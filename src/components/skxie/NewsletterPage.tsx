@@ -8,16 +8,16 @@ interface NewsletterPageProps {
 
 export const NewsletterPage: React.FC<NewsletterPageProps> = ({ isVisible }) => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
+  const [newsletterSubscribed, setNewsletterSubscribed] = useState(() => {
+    return typeof window !== 'undefined' && sessionStorage.getItem('skxie_newsletter_subscribed') === 'true';
+  });
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newsletterEmail) {
+      sessionStorage.setItem('skxie_newsletter_subscribed', 'true');
       setNewsletterSubscribed(true);
-      setTimeout(() => {
-        setNewsletterEmail('');
-        setNewsletterSubscribed(false);
-      }, 3000);
+      setNewsletterEmail('');
     }
   };
 
@@ -65,6 +65,7 @@ export const NewsletterPage: React.FC<NewsletterPageProps> = ({ isVisible }) => 
             <button
               type="button"
               onClick={() => {
+                sessionStorage.removeItem('skxie_newsletter_subscribed');
                 setNewsletterEmail('');
                 setNewsletterSubscribed(false);
               }}
