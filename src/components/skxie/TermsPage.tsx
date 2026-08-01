@@ -60,7 +60,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible }) => {
           <div className="space-y-2">
             <h3 className="text-sm font-medium text-white tracking-wide">3. Intellectual Property</h3>
             <p>
-              Unless otherwise stated, all content available on this website—including but not limited to:
+              Unless otherwise stated, all content available on this website - including but not limited to:
             </p>
             <ul className="list-disc pl-4 space-y-1 text-zinc-400">
               <li>Book titles</li>

@@ -19,14 +19,14 @@ export default function App() {
   // Dynamic Browser Tab Titles for SEO and User Experience
   useEffect(() => {
     const titleMap: Record<typeof currentView, string> = {
-      home: 'skxie — Digital Novelist & Storyteller',
-      about: 'About — skxie',
-      faqs: 'FAQs — skxie',
-      contact: 'Contact — skxie',
-      newsletter: 'Newsletter — skxie',
-      privacy: 'Privacy Policy — skxie',
-      terms: 'Terms & Conditions — skxie',
-      cookies: 'Cookie Policy — skxie',
+      home: 'skxie - Digital Novelist & Storyteller',
+      about: 'About - skxie',
+      faqs: 'FAQs - skxie',
+      contact: 'Contact - skxie',
+      newsletter: 'Newsletter - skxie',
+      privacy: 'Privacy Policy - skxie',
+      terms: 'Terms & Conditions - skxie',
+      cookies: 'Cookie Policy - skxie',
     };
     document.title = titleMap[currentView] || 'skxie';
   }, [currentView]);
