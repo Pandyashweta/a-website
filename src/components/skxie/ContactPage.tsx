@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Send } from 'lucide-react';
+import { Send, CheckCircle2 } from 'lucide-react';
 
 interface ContactPageProps {
   isVisible: boolean;
@@ -86,11 +86,28 @@ export const ContactPage: React.FC<ContactPageProps> = ({ isVisible }) => {
 
         {contactSubmitted ? (
           <motion.div
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-xs font-medium text-center"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="p-8 sm:p-10 bg-[#070709] border border-emerald-500/30 rounded-2xl text-center flex flex-col items-center justify-center space-y-4 shadow-xl my-4"
           >
-            Your message has been sent successfully. Thank you!
+            <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 text-emerald-400">
+              <CheckCircle2 className="w-6 h-6" />
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-lg font-light text-white tracking-wide">
+                Message Sent Successfully
+              </h3>
+              <p className="text-xs text-zinc-400 font-light max-w-sm mx-auto leading-relaxed">
+                Thank you for reaching out! Your message has been sent directly to skxielol@gmail.com and logged. I will get back to you as soon as possible.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setContactSubmitted(false)}
+              className="pt-2 text-[11px] uppercase tracking-[0.2em] font-medium text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            >
+              Send Another Message
+            </button>
           </motion.div>
         ) : (
           <form onSubmit={handleContactSubmit} className="space-y-4 pt-2">
