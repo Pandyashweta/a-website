@@ -5,9 +5,10 @@ import { SolidIcon } from './SocialIcons';
 interface FooterProps {
   skxieSocials: SocialItem[];
   onPrivacyClick?: () => void;
+  onTermsClick?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ skxieSocials, onPrivacyClick }) => {
+export const Footer: React.FC<FooterProps> = ({ skxieSocials, onPrivacyClick, onTermsClick }) => {
   return (
     <footer className="fixed bottom-0 left-0 right-0 z-50 h-20 px-6 sm:px-12 flex flex-row items-center justify-between bg-transparent border-none pointer-events-none">
       {/* SOCIAL LOGOS ONLY (Left Side Corner - Strictly Horizontal Row) */}
@@ -33,14 +34,25 @@ export const Footer: React.FC<FooterProps> = ({ skxieSocials, onPrivacyClick }) 
         </div>
       </div>
 
-      {/* Right side corner - Privacy Policy Link */}
-      <div className="pointer-events-auto">
+      {/* Right side corner - Privacy Policy & Terms Links */}
+      <div className="pointer-events-auto flex items-center space-x-3 sm:space-x-4">
         {onPrivacyClick && (
           <button
             onClick={onPrivacyClick}
             className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-medium text-[#AAAAAA] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
           >
             Privacy Policy
+          </button>
+        )}
+        {onPrivacyClick && onTermsClick && (
+          <span className="text-zinc-700 text-[9px] sm:text-[10px] select-none">|</span>
+        )}
+        {onTermsClick && (
+          <button
+            onClick={onTermsClick}
+            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-medium text-[#AAAAAA] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+          >
+            Terms
           </button>
         )}
       </div>

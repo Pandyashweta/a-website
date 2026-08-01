@@ -60,6 +60,10 @@ export default function App() {
           setCurrentView('about');
           setAboutActiveTab('privacy');
         }}
+        onTermsClick={() => {
+          setCurrentView('about');
+          setAboutActiveTab('terms');
+        }}
       />
     </div>
   );
