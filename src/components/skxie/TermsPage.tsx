@@ -9,12 +9,16 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible }) => {
   if (!isVisible) return null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="w-full max-w-2xl mx-auto min-h-screen pt-28 pb-32 px-6 flex flex-col justify-start relative z-10 select-none"
-    >
+    <>
+      {/* Top Gradient Fade to hide text scrolling under transparent header */}
+      <div className="fixed top-0 left-0 right-0 h-28 bg-gradient-to-b from-[#0A0A0B] via-[#0A0A0B]/95 to-transparent z-40 pointer-events-none" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="w-full max-w-5xl mx-auto min-h-screen pt-28 pb-32 px-6 flex flex-col justify-start relative z-10 select-none"
+      >
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-4xl font-light font-serif-italic italic text-white">
@@ -25,7 +29,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible }) => {
           </p>
         </div>
 
-        <div className="text-zinc-400 text-xs leading-relaxed space-y-4 font-light text-justify max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin">
+        <div className="text-zinc-400 text-xs sm:text-sm leading-relaxed space-y-4 font-light text-justify">
           <p>
             Welcome to <strong>Skxie</strong> ("Website," "we," "our," or "us"). By accessing or using this website, you agree to these Terms & Conditions. If you do not agree with these terms, please do not use this website.
           </p>
@@ -56,7 +60,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible }) => {
           <div className="space-y-2">
             <h3 className="text-sm font-medium text-white tracking-wide">3. Intellectual Property</h3>
             <p>
-              Unless otherwise stated, all content available on this website—including but not limited to:
+              Unless otherwise stated, all content available on this website - including but not limited to:
             </p>
             <ul className="list-disc pl-4 space-y-1 text-zinc-400">
               <li>Book titles</li>
@@ -220,12 +224,10 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible }) => {
             <p className="mt-1">
               <strong>Email:</strong> <a href="mailto:skxielol@gmail.com" className="text-white hover:underline">skxielol@gmail.com</a>
             </p>
-            <p>
-              <strong>Website:</strong> <a href="https://skxie.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-white hover:underline">https://skxie.vercel.app/</a>
-            </p>
           </div>
         </div>
       </div>
     </motion.div>
+  </>
   );
 };

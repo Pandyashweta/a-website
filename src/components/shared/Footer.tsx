@@ -6,11 +6,21 @@ interface FooterProps {
   skxieSocials: SocialItem[];
   onPrivacyClick?: () => void;
   onTermsClick?: () => void;
+  onCookieClick?: () => void;
+  onFaqsClick?: () => void;
+  onNewsletterClick?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ skxieSocials, onPrivacyClick, onTermsClick }) => {
+export const Footer: React.FC<FooterProps> = ({ 
+  skxieSocials, 
+  onPrivacyClick, 
+  onTermsClick,
+  onCookieClick,
+  onFaqsClick,
+  onNewsletterClick
+}) => {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 z-50 h-20 px-6 sm:px-12 flex flex-row items-center justify-between bg-transparent border-none pointer-events-none">
+    <footer className="fixed bottom-0 left-0 right-0 z-50 h-20 px-6 sm:px-12 flex flex-row items-center justify-between bg-gradient-to-t from-[#0A0A0B] via-[#0A0A0B]/95 to-transparent pointer-events-none">
       {/* SOCIAL LOGOS ONLY (Left Side Corner - Strictly Horizontal Row) */}
       <div className="flex flex-row items-center pointer-events-auto">
         <div className="flex flex-row items-center space-x-6 sm:space-x-8 flex-nowrap">
@@ -34,25 +44,63 @@ export const Footer: React.FC<FooterProps> = ({ skxieSocials, onPrivacyClick, on
         </div>
       </div>
 
-      {/* Right side corner - Privacy Policy & Terms Links */}
+      {/* Copyright Notice (Centered) */}
+      <div className="pointer-events-auto text-[10px] sm:text-[11px] text-zinc-400 tracking-wider font-medium hidden sm:block select-none">
+        &copy; {new Date().getFullYear()} skxie. All Rights Reserved.
+      </div>
+
+      {/* Right side corner - Privacy Policy, Terms, FAQs, & Newsletter Links */}
       <div className="pointer-events-auto flex items-center space-x-3 sm:space-x-4">
         {onPrivacyClick && (
           <button
             onClick={onPrivacyClick}
-            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-medium text-[#AAAAAA] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#CCCCCC] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
           >
             Privacy Policy
           </button>
         )}
         {onPrivacyClick && onTermsClick && (
-          <span className="text-zinc-700 text-[9px] sm:text-[10px] select-none">|</span>
+          <span className="text-zinc-600 text-[10px] sm:text-[11px] select-none">|</span>
         )}
         {onTermsClick && (
           <button
             onClick={onTermsClick}
-            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-medium text-[#AAAAAA] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#CCCCCC] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
           >
             Terms
+          </button>
+        )}
+        {onTermsClick && onCookieClick && (
+          <span className="text-zinc-600 text-[10px] sm:text-[11px] select-none">|</span>
+        )}
+        {onCookieClick && (
+          <button
+            onClick={onCookieClick}
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#CCCCCC] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+          >
+            Cookie Policy
+          </button>
+        )}
+        {onCookieClick && onFaqsClick && (
+          <span className="text-zinc-600 text-[10px] sm:text-[11px] select-none">|</span>
+        )}
+        {onFaqsClick && (
+          <button
+            onClick={onFaqsClick}
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#CCCCCC] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+          >
+            FAQs
+          </button>
+        )}
+        {onFaqsClick && onNewsletterClick && (
+          <span className="text-zinc-600 text-[10px] sm:text-[11px] select-none">|</span>
+        )}
+        {onNewsletterClick && (
+          <button
+            onClick={onNewsletterClick}
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#CCCCCC] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+          >
+            Newsletter
           </button>
         )}
       </div>

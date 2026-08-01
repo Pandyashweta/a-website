@@ -21,6 +21,8 @@ export const Header: React.FC<HeaderProps> = ({ navItems, onNavClick, onLogoClic
           <img
             src={skxieLogo}
             alt="skxie logo"
+            width="160"
+            height="40"
             className="h-8 sm:h-10 w-auto object-contain select-none filter drop-shadow-md"
           />
         </button>
