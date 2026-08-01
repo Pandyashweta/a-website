@@ -8,6 +8,7 @@ import { NavItem, SocialItem } from './types';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<'home' | 'about'>('home');
+  const [aboutActiveTab, setAboutActiveTab] = useState<string>('bio');
 
   // Navigation items for skxie: books, about
   const [navItems] = useState<NavItem[]>([
@@ -34,7 +35,10 @@ export default function App() {
       {/* HEADER */}
       <Header
         navItems={navItems}
-        onAboutClick={() => setCurrentView('about')}
+        onAboutClick={() => {
+          setCurrentView('about');
+          setAboutActiveTab('bio');
+        }}
         onLogoClick={() => setCurrentView('home')}
       />
 
@@ -42,11 +46,21 @@ export default function App() {
       {currentView === 'home' ? (
         <BlankCanvas />
       ) : (
-        <AboutPage isVisible={currentView === 'about'} />
+        <AboutPage
+          isVisible={currentView === 'about'}
+          activeTab={aboutActiveTab}
+          setActiveTab={setAboutActiveTab}
+        />
       )}
 
       {/* FOOTER */}
-      <Footer skxieSocials={skxieSocials} />
+      <Footer
+        skxieSocials={skxieSocials}
+        onPrivacyClick={() => {
+          setCurrentView('about');
+          setAboutActiveTab('privacy');
+        }}
+      />
     </div>
   );
 }

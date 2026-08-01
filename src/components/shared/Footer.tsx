@@ -4,9 +4,10 @@ import { SolidIcon } from './SocialIcons';
 
 interface FooterProps {
   skxieSocials: SocialItem[];
+  onPrivacyClick?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ skxieSocials }) => {
+export const Footer: React.FC<FooterProps> = ({ skxieSocials, onPrivacyClick }) => {
   return (
     <footer className="fixed bottom-0 left-0 right-0 z-50 h-20 px-6 sm:px-12 flex flex-row items-center justify-between bg-transparent border-none pointer-events-none">
       {/* SOCIAL LOGOS ONLY (Left Side Corner - Strictly Horizontal Row) */}
@@ -32,8 +33,17 @@ export const Footer: React.FC<FooterProps> = ({ skxieSocials }) => {
         </div>
       </div>
 
-      {/* Right side corner kept clean */}
-      <div className="pointer-events-none" />
+      {/* Right side corner - Privacy Policy Link */}
+      <div className="pointer-events-auto">
+        {onPrivacyClick && (
+          <button
+            onClick={onPrivacyClick}
+            className="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] font-medium text-[#AAAAAA] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+          >
+            Privacy Policy
+          </button>
+        )}
+      </div>
     </footer>
   );
 };
