@@ -16,12 +16,21 @@
 .font-careera-script {
   font-family: 'Pacifico', 'Grand Hotel', 'Yellowtail', 'Satisfy', cursive;
 }
-/* Hide scrollbar globally but preserve scrolling functionality */
-::-webkit-scrollbar {
-  display: none;
+/* Hide scrollbar globally for all elements across WebKit, Firefox, IE/Edge */
+html, body, div, main, section, article, textarea, * {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
 }
 
-html, body {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+div::-webkit-scrollbar,
+main::-webkit-scrollbar,
+section::-webkit-scrollbar,
+textarea::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
 }
