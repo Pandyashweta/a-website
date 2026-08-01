@@ -4,7 +4,7 @@ import skxieLogo from '../../../assets/skxie.png';
 
 interface HeaderProps {
   navItems: NavItem[];
-  onNavClick: (id: 'about' | 'contact' | 'newsletter') => void;
+  onNavClick: (id: 'about' | 'faqs' | 'contact' | 'newsletter') => void;
   onLogoClick: () => void;
 }
 
@@ -30,11 +30,11 @@ export const Header: React.FC<HeaderProps> = ({ navItems, onNavClick, onLogoClic
       <div className="flex items-center justify-end pointer-events-auto">
         <nav className="flex items-center space-x-6 sm:space-x-10">
           {navItems.map((item) => {
-            if (item.id === 'about' || item.id === 'contact' || item.id === 'newsletter') {
+            if (item.id === 'about' || item.id === 'faqs' || item.id === 'contact' || item.id === 'newsletter') {
               return (
                 <button
                   key={item.id}
-                  onClick={() => onNavClick(item.id as 'about' | 'contact' | 'newsletter')}
+                  onClick={() => onNavClick(item.id as 'about' | 'faqs' | 'contact' | 'newsletter')}
                   className="text-[10px] sm:text-[11px] uppercase tracking-[0.3em] font-medium text-[#AAAAAA] hover:text-white transition-colors duration-300 whitespace-nowrap cursor-pointer drop-shadow-sm focus:outline-none"
                 >
                   {item.label}

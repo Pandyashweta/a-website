@@ -6,16 +6,19 @@ import { SkyBackground } from './components/shared/SkyBackground';
 import { AboutPage } from './components/skxie/AboutPage';
 import { ContactPage } from './components/skxie/ContactPage';
 import { NewsletterPage } from './components/skxie/NewsletterPage';
+import { FaqsPage } from './components/skxie/FaqsPage';
+import { PrivacyPage } from './components/skxie/PrivacyPage';
+import { TermsPage } from './components/skxie/TermsPage';
 import { NavItem, SocialItem } from './types';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'about' | 'contact' | 'newsletter'>('home');
-  const [aboutActiveTab, setAboutActiveTab] = useState<string>('bio');
+  const [currentView, setCurrentView] = useState<'home' | 'about' | 'faqs' | 'contact' | 'newsletter' | 'privacy' | 'terms'>('home');
 
-  // Navigation items for skxie: books, about, contact, newsletter
+  // Navigation items for skxie: books, about, faqs, contact, newsletter
   const [navItems] = useState<NavItem[]>([
     { id: 'books', label: 'books', url: 'https://books.skxie.com' },
     { id: 'about', label: 'about', url: '#' },
+    { id: 'faqs', label: 'faqs', url: '#' },
     { id: 'contact', label: 'contact', url: '#' },
     { id: 'newsletter', label: 'newsletter', url: '#' },
   ]);
@@ -39,23 +42,17 @@ export default function App() {
       {/* HEADER */}
       <Header
         navItems={navItems}
-        onNavClick={(id) => {
-          setCurrentView(id);
-          if (id === 'about') {
-            setAboutActiveTab('bio');
-          }
-        }}
+        onNavClick={(id) => setCurrentView(id)}
         onLogoClick={() => setCurrentView('home')}
       />
 
       {/* MAIN BODY CANVAS */}
       {currentView === 'home' && <BlankCanvas />}
       {currentView === 'about' && (
-        <AboutPage
-          isVisible={true}
-          activeTab={aboutActiveTab}
-          setActiveTab={setAboutActiveTab}
-        />
+        <AboutPage isVisible={true} />
+      )}
+      {currentView === 'faqs' && (
+        <FaqsPage isVisible={true} />
       )}
       {currentView === 'contact' && (
         <ContactPage isVisible={true} />
@@ -63,18 +60,18 @@ export default function App() {
       {currentView === 'newsletter' && (
         <NewsletterPage isVisible={true} />
       )}
+      {currentView === 'privacy' && (
+        <PrivacyPage isVisible={true} />
+      )}
+      {currentView === 'terms' && (
+        <TermsPage isVisible={true} />
+      )}
 
       {/* FOOTER */}
       <Footer
         skxieSocials={skxieSocials}
-        onPrivacyClick={() => {
-          setCurrentView('about');
-          setAboutActiveTab('privacy');
-        }}
-        onTermsClick={() => {
-          setCurrentView('about');
-          setAboutActiveTab('terms');
-        }}
+        onPrivacyClick={() => setCurrentView('privacy')}
+        onTermsClick={() => setCurrentView('terms')}
       />
     </div>
   );
