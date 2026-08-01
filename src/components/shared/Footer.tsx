@@ -34,6 +34,11 @@ export const Footer: React.FC<FooterProps> = ({ skxieSocials, onPrivacyClick, on
         </div>
       </div>
 
+      {/* Copyright Notice (Centered) */}
+      <div className="pointer-events-auto text-[9px] sm:text-[10px] text-zinc-500 tracking-wider font-light hidden sm:block select-none">
+        &copy; {new Date().getFullYear()} skxie. All Rights Reserved.
+      </div>
+
       {/* Right side corner - Privacy Policy & Terms Links */}
       <div className="pointer-events-auto flex items-center space-x-3 sm:space-x-4">
         {onPrivacyClick && (
