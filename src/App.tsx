@@ -14,13 +14,11 @@ import { NavItem, SocialItem } from './types';
 export default function App() {
   const [currentView, setCurrentView] = useState<'home' | 'about' | 'faqs' | 'contact' | 'newsletter' | 'privacy' | 'terms'>('home');
 
-  // Navigation items for skxie: books, about, faqs, contact, newsletter
+  // Navigation items for skxie: books, about, contact
   const [navItems] = useState<NavItem[]>([
     { id: 'books', label: 'books', url: 'https://books.skxie.com' },
     { id: 'about', label: 'about', url: '#' },
-    { id: 'faqs', label: 'faqs', url: '#' },
     { id: 'contact', label: 'contact', url: '#' },
-    { id: 'newsletter', label: 'newsletter', url: '#' },
   ]);
 
   // Social Links for skxie: Insta, discord, email, amazon, goodreads, wattpad, stck-me
