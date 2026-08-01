@@ -18,7 +18,7 @@ export const Footer: React.FC<FooterProps> = ({
   onNewsletterClick
 }) => {
   return (
-    <footer className="fixed bottom-0 left-0 right-0 z-50 h-20 px-6 sm:px-12 flex flex-row items-center justify-between bg-transparent border-none pointer-events-none">
+    <footer className="fixed bottom-0 left-0 right-0 z-50 h-20 px-6 sm:px-12 flex flex-row items-center justify-between bg-gradient-to-t from-[#0A0A0B] via-[#0A0A0B]/95 to-transparent pointer-events-none">
       {/* SOCIAL LOGOS ONLY (Left Side Corner - Strictly Horizontal Row) */}
       <div className="flex flex-row items-center pointer-events-auto">
         <div className="flex flex-row items-center space-x-6 sm:space-x-8 flex-nowrap">
