@@ -17,27 +17,3 @@
   font-family: 'Pacifico', 'Grand Hotel', 'Yellowtail', 'Satisfy', cursive;
 }
 
-.extinctmuffin-logo-text {
-  font-family: 'Grand Hotel', 'Satisfy', 'Yellowtail', 'Pacifico', cursive;
-  font-style: italic;
-  color: #ff66c4;
-  -webkit-text-stroke: 12px #80004e;
-  paint-order: stroke fill;
-  stroke-linejoin: round;
-  display: inline-block;
-  transform: skewX(-6deg);
-  filter: drop-shadow(0px 8px 24px rgba(128, 0, 78, 0.7));
-}
-
-.extinctmuffin-logo-header {
-  font-family: 'Grand Hotel', 'Satisfy', 'Yellowtail', 'Pacifico', cursive;
-  font-style: italic;
-  color: #ff66c4;
-  -webkit-text-stroke: 5px #80004e;
-  paint-order: stroke fill;
-  stroke-linejoin: round;
-  display: inline-block;
-  transform: skewX(-6deg);
-  filter: drop-shadow(0px 4px 10px rgba(128, 0, 78, 0.6));
-}
-
