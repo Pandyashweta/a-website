@@ -10,18 +10,51 @@ export const ContactPage: React.FC<ContactPageProps> = ({ isVisible }) => {
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
   const [contactMessage, setContactMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [contactSubmitted, setContactSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (contactName && contactEmail && contactMessage) {
-      setContactSubmitted(true);
-      setTimeout(() => {
+      setIsSubmitting(true);
+      setSubmitError(null);
+
+      const formUrl = import.meta.env.VITE_CONTACT_FORM_URL;
+
+      try {
+        if (!formUrl) {
+          // If no form URL is configured yet, log a warning and fallback to local success simulation
+          console.warn("VITE_CONTACT_FORM_URL is not configured in the environment. Simulating submission.");
+          await new Promise((resolve) => setTimeout(resolve, 1500));
+        } else {
+          // Use FormData for seamless compatibility with Google Apps Script doPost parameters
+          const formData = new FormData();
+          formData.append('name', contactName);
+          formData.append('email', contactEmail);
+          formData.append('message', contactMessage);
+
+          await fetch(formUrl, {
+            method: 'POST',
+            body: formData,
+            mode: 'no-cors', // Required for Google Apps Script redirects
+          });
+        }
+
+        setContactSubmitted(true);
         setContactName('');
         setContactEmail('');
         setContactMessage('');
-        setContactSubmitted(false);
-      }, 3000);
+
+        setTimeout(() => {
+          setContactSubmitted(false);
+        }, 5000);
+      } catch (err) {
+        console.error("Form submission error:", err);
+        setSubmitError("Failed to send message. Please try again or email directly.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -87,12 +120,27 @@ export const ContactPage: React.FC<ContactPageProps> = ({ isVisible }) => {
               onChange={(e) => setContactMessage(e.target.value)}
               className="w-full px-4 py-3 text-xs bg-[#070709] border border-[#222228]/70 focus:border-[#44444F] rounded-lg text-white focus:outline-none transition-colors resize-none"
             />
+            {submitError && (
+              <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-xs font-medium text-center">
+                {submitError}
+              </div>
+            )}
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 px-5 py-3 bg-white text-black hover:bg-[#E5E5E5] active:scale-95 transition-all rounded-lg text-xs font-medium cursor-pointer"
+              disabled={isSubmitting}
+              className="w-full flex items-center justify-center gap-2 px-5 py-3 bg-white text-black hover:bg-[#E5E5E5] active:scale-95 disabled:opacity-50 disabled:pointer-events-none transition-all rounded-lg text-xs font-medium cursor-pointer"
             >
-              <span>Send Message</span>
-              <Send className="w-3.5 h-3.5" />
+              {isSubmitting ? (
+                <>
+                  <span>Sending...</span>
+                  <div className="w-3.5 h-3.5 border-2 border-black border-t-transparent rounded-full animate-spin" />
+                </>
+              ) : (
+                <>
+                  <span>Send Message</span>
+                  <Send className="w-3.5 h-3.5" />
+                </>
+              )}
             </button>
           </form>
         )}
