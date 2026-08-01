@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
+import { CheckCircle2 } from 'lucide-react';
 
 interface NewsletterPageProps {
   isVisible: boolean;
@@ -46,11 +47,31 @@ export const NewsletterPage: React.FC<NewsletterPageProps> = ({ isVisible }) => 
 
         {newsletterSubscribed ? (
           <motion.div
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="p-6 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-xs font-medium text-center"
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="p-8 sm:p-10 bg-[#070709] border border-emerald-500/30 rounded-2xl text-center flex flex-col items-center justify-center space-y-4 shadow-xl my-4"
           >
-            Thank you for subscribing! Welcome to the loop.
+            <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20 text-emerald-400">
+              <CheckCircle2 className="w-6 h-6" />
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-lg font-light text-white tracking-wide">
+                Subscribed Successfully
+              </h3>
+              <p className="text-xs text-zinc-400 font-light max-w-sm mx-auto leading-relaxed">
+                Thank you for subscribing! You are now in the loop and will receive exclusive updates on new releases directly in your inbox.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setNewsletterEmail('');
+                setNewsletterSubscribed(false);
+              }}
+              className="pt-2 text-[11px] uppercase tracking-[0.2em] font-medium text-zinc-400 hover:text-white transition-colors cursor-pointer"
+            >
+              Subscribe Another Email
+            </button>
           </motion.div>
         ) : (
           <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 pt-2">
