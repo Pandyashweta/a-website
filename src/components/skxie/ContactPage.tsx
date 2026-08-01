@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
 import { Send } from 'lucide-react';
@@ -22,12 +20,12 @@ export const ContactPage: React.FC<ContactPageProps> = ({ isVisible }) => {
       setIsSubmitting(true);
       setSubmitError(null);
 
-      const formUrl = process.env.NEXT_PUBLIC_CONTACT_FORM_URL || process.env.VITE_CONTACT_FORM_URL;
+      const formUrl = import.meta.env.VITE_CONTACT_FORM_URL;
 
       try {
         if (!formUrl) {
           // If no form URL is configured yet, log a warning and fallback to local success simulation
-          console.warn("CONTACT_FORM_URL is not configured in the environment. Simulating submission.");
+          console.warn("VITE_CONTACT_FORM_URL is not configured in the environment. Simulating submission.");
           await new Promise((resolve) => setTimeout(resolve, 1500));
         } else {
           // Use FormData for seamless compatibility with Google Apps Script doPost parameters

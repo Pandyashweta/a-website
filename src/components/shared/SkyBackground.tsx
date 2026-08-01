@@ -1,9 +1,7 @@
-"use client";
-
 import React, { useEffect, useRef } from 'react';
 
 interface SkyBackgroundProps {
-  isNight?: boolean;
+  isNight: boolean;
 }
 
 interface AmbientParticle {
@@ -16,7 +14,7 @@ interface AmbientParticle {
   life: number;
 }
 
-export const SkyBackground: React.FC<SkyBackgroundProps> = ({ isNight = true }) => {
+export const SkyBackground: React.FC<SkyBackgroundProps> = ({ isNight }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
