@@ -4,16 +4,20 @@ import { Footer } from './components/shared/Footer';
 import { BlankCanvas } from './components/BlankCanvas';
 import { SkyBackground } from './components/shared/SkyBackground';
 import { AboutPage } from './components/skxie/AboutPage';
+import { ContactPage } from './components/skxie/ContactPage';
+import { NewsletterPage } from './components/skxie/NewsletterPage';
 import { NavItem, SocialItem } from './types';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'about'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'about' | 'contact' | 'newsletter'>('home');
   const [aboutActiveTab, setAboutActiveTab] = useState<string>('bio');
 
-  // Navigation items for skxie: books, about
+  // Navigation items for skxie: books, about, contact, newsletter
   const [navItems] = useState<NavItem[]>([
     { id: 'books', label: 'books', url: 'https://books.skxie.com' },
     { id: 'about', label: 'about', url: '#' },
+    { id: 'contact', label: 'contact', url: '#' },
+    { id: 'newsletter', label: 'newsletter', url: '#' },
   ]);
 
   // Social Links for skxie: Insta, discord, email, amazon, goodreads, wattpad, stck-me
@@ -35,22 +39,29 @@ export default function App() {
       {/* HEADER */}
       <Header
         navItems={navItems}
-        onAboutClick={() => {
-          setCurrentView('about');
-          setAboutActiveTab('bio');
+        onNavClick={(id) => {
+          setCurrentView(id);
+          if (id === 'about') {
+            setAboutActiveTab('bio');
+          }
         }}
         onLogoClick={() => setCurrentView('home')}
       />
 
       {/* MAIN BODY CANVAS */}
-      {currentView === 'home' ? (
-        <BlankCanvas />
-      ) : (
+      {currentView === 'home' && <BlankCanvas />}
+      {currentView === 'about' && (
         <AboutPage
-          isVisible={currentView === 'about'}
+          isVisible={true}
           activeTab={aboutActiveTab}
           setActiveTab={setAboutActiveTab}
         />
+      )}
+      {currentView === 'contact' && (
+        <ContactPage isVisible={true} />
+      )}
+      {currentView === 'newsletter' && (
+        <NewsletterPage isVisible={true} />
       )}
 
       {/* FOOTER */}

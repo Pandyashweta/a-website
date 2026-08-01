@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown, Send } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 
 interface AboutPageProps {
   isVisible: boolean;
@@ -16,15 +16,6 @@ interface FAQItem {
 export const AboutPage: React.FC<AboutPageProps> = ({ isVisible, activeTab, setActiveTab }) => {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   
-  // Form states
-  const [contactName, setContactName] = useState('');
-  const [contactEmail, setContactEmail] = useState('');
-  const [contactMessage, setContactMessage] = useState('');
-  const [contactSubmitted, setContactSubmitted] = useState(false);
-
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterSubscribed, setNewsletterSubscribed] = useState(false);
-
   const faqs: FAQItem[] = [
     {
       question: "Where can I read your stories?",
@@ -36,33 +27,9 @@ export const AboutPage: React.FC<AboutPageProps> = ({ isVisible, activeTab, setA
     },
     {
       question: "How can I get updates on new releases?",
-      answer: "Subscribe to the newsletter at the bottom of this page to receive official announcements, exclusive previews, and writing updates directly in your inbox."
+      answer: "Subscribe to the newsletter directly from the Newsletter section in the header to receive official announcements, exclusive previews, and writing updates directly in your inbox."
     }
   ];
-
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (contactName && contactEmail && contactMessage) {
-      setContactSubmitted(true);
-      setTimeout(() => {
-        setContactName('');
-        setContactEmail('');
-        setContactMessage('');
-        setContactSubmitted(false);
-      }, 3000);
-    }
-  };
-
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newsletterEmail) {
-      setNewsletterSubscribed(true);
-      setTimeout(() => {
-        setNewsletterEmail('');
-        setNewsletterSubscribed(false);
-      }, 3000);
-    }
-  };
 
   if (!isVisible) return null;
 
@@ -85,9 +52,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ isVisible, activeTab, setA
             { id: 'bio', label: 'Bio' },
             { id: 'privacy', label: 'Privacy Policy' },
             { id: 'terms', label: 'Terms & Conditions' },
-            { id: 'faqs', label: 'FAQs' },
-            { id: 'contact', label: 'Contact' },
-            { id: 'newsletter', label: 'Newsletter' }
+            { id: 'faqs', label: 'FAQs' }
           ].map((item) => (
             <button
               key={item.id}
@@ -624,106 +589,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ isVisible, activeTab, setA
               </div>
             )}
 
-            {/* Contact Section */}
-            {activeTab === 'contact' && (
-              <div className="space-y-4">
-                <h2 className="text-3xl font-light font-serif-italic italic text-white">
-                  Contact
-                </h2>
-                <p className="text-zinc-400 text-xs font-light">
-                  Have a question or looking to collaborate? Drop a message below or email directly at{' '}
-                  <a href="mailto:skxie@contact.com" className="text-white hover:underline">
-                    skxie@contact.com
-                  </a>.
-                </p>
 
-                {contactSubmitted ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-xs font-medium text-center"
-                  >
-                    Your message has been sent successfully. Thank you!
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleContactSubmit} className="space-y-3">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <input
-                        type="text"
-                        placeholder="Your Name"
-                        required
-                        value={contactName}
-                        onChange={(e) => setContactName(e.target.value)}
-                        className="px-3.5 py-2.5 text-xs bg-[#070709] border border-[#222228]/70 focus:border-[#44444F] rounded-lg text-white focus:outline-none transition-colors"
-                      />
-                      <input
-                        type="email"
-                        placeholder="Your Email"
-                        required
-                        value={contactEmail}
-                        onChange={(e) => setContactEmail(e.target.value)}
-                        className="px-3.5 py-2.5 text-xs bg-[#070709] border border-[#222228]/70 focus:border-[#44444F] rounded-lg text-white focus:outline-none transition-colors"
-                      />
-                    </div>
-                    <textarea
-                      placeholder="Your Message"
-                      required
-                      rows={4}
-                      value={contactMessage}
-                      onChange={(e) => setContactMessage(e.target.value)}
-                      className="w-full px-3.5 py-2.5 text-xs bg-[#070709] border border-[#222228]/70 focus:border-[#44444F] rounded-lg text-white focus:outline-none transition-colors resize-none"
-                    />
-                    <button
-                      type="submit"
-                      className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-white text-black hover:bg-[#E5E5E5] active:scale-95 transition-all rounded-lg text-xs font-medium cursor-pointer"
-                    >
-                      <span>Send Message</span>
-                      <Send className="w-3.5 h-3.5" />
-                    </button>
-                  </form>
-                )}
-              </div>
-            )}
-
-            {/* Newsletter Section */}
-            {activeTab === 'newsletter' && (
-              <div className="space-y-4">
-                <h2 className="text-3xl font-light font-serif-italic italic text-white">
-                  Newsletter
-                </h2>
-                <p className="text-zinc-400 text-xs font-light">
-                  Join the inner circle. Subscribe to get updates on new chapters, publishing releases, 
-                  and exclusive writing notes directly in your inbox.
-                </p>
-
-                {newsletterSubscribed ? (
-                  <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-xs font-medium text-center"
-                  >
-                    Thank you for subscribing! Welcome to the loop.
-                  </motion.div>
-                ) : (
-                  <form onSubmit={handleNewsletterSubmit} className="flex gap-2">
-                    <input
-                      type="email"
-                      placeholder="Enter your email"
-                      required
-                      value={newsletterEmail}
-                      onChange={(e) => setNewsletterEmail(e.target.value)}
-                      className="flex-1 px-3.5 py-2.5 text-xs bg-[#070709] border border-[#222228]/70 focus:border-[#44444F] rounded-lg text-white focus:outline-none transition-colors"
-                    />
-                    <button
-                      type="submit"
-                      className="px-5 py-2.5 bg-white text-black hover:bg-[#E5E5E5] active:scale-95 transition-all rounded-lg text-xs font-medium cursor-pointer whitespace-nowrap"
-                    >
-                      Subscribe
-                    </button>
-                  </form>
-                )}
-              </div>
-            )}
           </motion.div>
         </AnimatePresence>
       </div>
