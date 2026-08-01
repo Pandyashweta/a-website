@@ -6,6 +6,7 @@ interface FooterProps {
   skxieSocials: SocialItem[];
   onPrivacyClick?: () => void;
   onTermsClick?: () => void;
+  onCookieClick?: () => void;
   onFaqsClick?: () => void;
   onNewsletterClick?: () => void;
 }
@@ -14,6 +15,7 @@ export const Footer: React.FC<FooterProps> = ({
   skxieSocials, 
   onPrivacyClick, 
   onTermsClick,
+  onCookieClick,
   onFaqsClick,
   onNewsletterClick
 }) => {
@@ -68,7 +70,18 @@ export const Footer: React.FC<FooterProps> = ({
             Terms
           </button>
         )}
-        {onTermsClick && onFaqsClick && (
+        {onTermsClick && onCookieClick && (
+          <span className="text-zinc-600 text-[10px] sm:text-[11px] select-none">|</span>
+        )}
+        {onCookieClick && (
+          <button
+            onClick={onCookieClick}
+            className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] font-semibold text-[#CCCCCC] hover:text-white transition-colors duration-300 cursor-pointer focus:outline-none"
+          >
+            Cookie Policy
+          </button>
+        )}
+        {onCookieClick && onFaqsClick && (
           <span className="text-zinc-600 text-[10px] sm:text-[11px] select-none">|</span>
         )}
         {onFaqsClick && (

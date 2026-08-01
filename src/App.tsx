@@ -9,11 +9,12 @@ import { NewsletterPage } from './components/skxie/NewsletterPage';
 import { FaqsPage } from './components/skxie/FaqsPage';
 import { PrivacyPage } from './components/skxie/PrivacyPage';
 import { TermsPage } from './components/skxie/TermsPage';
+import { CookiePolicyPage } from './components/skxie/CookiePolicyPage';
 import { CookieBanner } from './components/shared/CookieBanner';
 import { NavItem, SocialItem } from './types';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'about' | 'faqs' | 'contact' | 'newsletter' | 'privacy' | 'terms'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'about' | 'faqs' | 'contact' | 'newsletter' | 'privacy' | 'terms' | 'cookies'>('home');
 
   // Dynamic Browser Tab Titles for SEO and User Experience
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function App() {
       newsletter: 'Newsletter — skxie',
       privacy: 'Privacy Policy — skxie',
       terms: 'Terms & Conditions — skxie',
+      cookies: 'Cookie Policy — skxie',
     };
     document.title = titleMap[currentView] || 'skxie';
   }, [currentView]);
@@ -79,18 +81,25 @@ export default function App() {
       {currentView === 'terms' && (
         <TermsPage isVisible={true} />
       )}
+      {currentView === 'cookies' && (
+        <CookiePolicyPage isVisible={true} />
+      )}
 
       {/* FOOTER */}
       <Footer
         skxieSocials={skxieSocials}
         onPrivacyClick={() => setCurrentView('privacy')}
         onTermsClick={() => setCurrentView('terms')}
+        onCookieClick={() => setCurrentView('cookies')}
         onFaqsClick={() => setCurrentView('faqs')}
         onNewsletterClick={() => setCurrentView('newsletter')}
       />
 
       {/* COOKIE CONSENT BANNER */}
-      <CookieBanner onNavigateToPrivacy={() => setCurrentView('privacy')} />
+      <CookieBanner 
+        onNavigateToPrivacy={() => setCurrentView('privacy')} 
+        onNavigateToCookiePolicy={() => setCurrentView('cookies')}
+      />
     </div>
   );
 }

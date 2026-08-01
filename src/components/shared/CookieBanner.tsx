@@ -4,6 +4,7 @@ import { X } from 'lucide-react';
 
 interface CookieBannerProps {
   onNavigateToPrivacy?: () => void;
+  onNavigateToCookiePolicy?: () => void;
 }
 
 const DetailedCookieIcon = () => (
@@ -22,7 +23,10 @@ const DetailedCookieIcon = () => (
   </svg>
 );
 
-export const CookieBanner: React.FC<CookieBannerProps> = ({ onNavigateToPrivacy }) => {
+export const CookieBanner: React.FC<CookieBannerProps> = ({ 
+  onNavigateToPrivacy,
+  onNavigateToCookiePolicy
+}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -81,15 +85,22 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({ onNavigateToPrivacy 
           </div>
 
           <p className="text-[12px] text-zinc-400 font-light leading-relaxed mb-4">
-            We use cookies to personalize content and analyze site traffic.{' '}
-            {onNavigateToPrivacy && (
+            We use essential cookies to ensure security and site functionality.{' '}
+            {onNavigateToCookiePolicy ? (
+              <button
+                onClick={onNavigateToCookiePolicy}
+                className="text-zinc-200 underline hover:text-white transition-colors cursor-pointer font-normal"
+              >
+                Cookie Policy
+              </button>
+            ) : onNavigateToPrivacy ? (
               <button
                 onClick={onNavigateToPrivacy}
                 className="text-zinc-200 underline hover:text-white transition-colors cursor-pointer font-normal"
               >
                 Privacy Policy
               </button>
-            )}
+            ) : null}
           </p>
 
           <div className="flex items-center gap-2">
