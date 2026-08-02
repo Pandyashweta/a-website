@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Careera Script';
+  src: url('/fonts/CareeraScript.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   background-color: #0A0A0B;
@@ -7,12 +15,13 @@ body {
 }
 
 .font-serif-italic {
-  font-family: 'Instrument Serif', Georgia, serif;
-  font-style: italic;
+  font-family: 'Careera Script', 'Instrument Serif', Georgia, serif;
+  font-style: normal;
 }
 
 .font-careera-script {
-  font-family: 'Pacifico', 'Grand Hotel', 'Yellowtail', 'Satisfy', cursive;
+  font-family: 'Careera Script', 'Pacifico', 'Grand Hotel', cursive;
+  font-style: normal;
 }
 
 /* Hide scrollbar globally across browsers */

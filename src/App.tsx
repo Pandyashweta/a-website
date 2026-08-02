@@ -1,97 +1,154 @@
 import React, { useState, useEffect } from 'react';
-import { Header } from './components/shared/Header';
-import { Footer } from './components/shared/Footer';
-import { BlankCanvas } from './components/BlankCanvas';
-import { SkyBackground } from './components/shared/SkyBackground';
-import { AboutPage } from './components/skxie/AboutPage';
-import { ContactPage } from './components/skxie/ContactPage';
-import { NewsletterPage } from './components/skxie/NewsletterPage';
-import { FaqsPage } from './components/skxie/FaqsPage';
-import { PrivacyPage } from './components/skxie/PrivacyPage';
-import { TermsPage } from './components/skxie/TermsPage';
-import { CookiePolicyPage } from './components/skxie/CookiePolicyPage';
-import { CookieBanner } from './components/shared/CookieBanner';
+import { Header, Footer, VideoBackground, CookieBanner } from './components/layout';
+import {
+  HomePage,
+  BooksPage,
+  GalleryPage,
+  AboutPage,
+  ContactPage,
+  NewsletterPage,
+  LegalPage,
+  NotFoundPage,
+} from './pages';
+import { navItemsData, socialsData } from './data';
 import { NavItem, SocialItem } from './types';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'about' | 'faqs' | 'contact' | 'newsletter' | 'privacy' | 'terms' | 'cookies'>('home');
+  type ViewType = 'home' | 'books' | 'gallery' | 'about' | 'faqs' | 'contact' | 'newsletter' | 'legal' | 'privacy' | 'terms' | 'cookies' | '404';
+
+  const [currentView, setCurrentView] = useState<ViewType>('home');
+  const [bgMode, setBgMode] = useState<'black' | 'white'>('white');
+  const [isScrolledDown, setIsScrolledDown] = useState(false);
+
+  // Track scroll position to hide video background when scrolling down on HomePage
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 250) {
+        setIsScrolledDown(true);
+      } else {
+        setIsScrolledDown(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Client-side URL Path Routing handling
+  useEffect(() => {
+    const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+    if (!path) return;
+
+    const validViews: Record<string, ViewType> = {
+      books: 'books',
+      gallery: 'gallery',
+      gallary: 'gallery',
+      about: 'about',
+      faqs: 'about',
+      contact: 'contact',
+      newsletter: 'newsletter',
+      legal: 'legal',
+      privacy: 'privacy',
+      terms: 'terms',
+      cookies: 'cookies',
+    };
+
+    if (validViews[path]) {
+      setCurrentView(validViews[path]);
+    } else {
+      setCurrentView('404');
+    }
+  }, []);
 
   // Dynamic Browser Tab Titles for SEO and User Experience
   useEffect(() => {
-    const titleMap: Record<typeof currentView, string> = {
-      home: 'skxie - Digital Novelist & Storyteller',
+    const titleMap: Record<ViewType, string> = {
+      home: 'skxie',
+      books: 'Books - skxie',
+      gallery: 'Gallery - skxie',
       about: 'About - skxie',
-      faqs: 'FAQs - skxie',
+      faqs: 'About - skxie',
       contact: 'Contact - skxie',
       newsletter: 'Newsletter - skxie',
+      legal: 'Legal - skxie',
       privacy: 'Privacy Policy - skxie',
       terms: 'Terms & Conditions - skxie',
       cookies: 'Cookie Policy - skxie',
+      '404': '404 Page Not Found - skxie',
     };
     document.title = titleMap[currentView] || 'skxie';
   }, [currentView]);
 
-  // Navigation items for skxie: books, about, contact
-  const [navItems] = useState<NavItem[]>([
-    { id: 'books', label: 'books', url: 'https://books.skxie.com' },
-    { id: 'about', label: 'about', url: '#' },
-    { id: 'contact', label: 'contact', url: '#' },
-  ]);
+  const [navItems] = useState<NavItem[]>(navItemsData);
+  const [skxieSocials] = useState<SocialItem[]>(socialsData);
 
-  // Social Links for skxie: Insta, discord, email, amazon, goodreads, wattpad, stck-me
-  const [skxieSocials] = useState<SocialItem[]>([
-    { id: 'sk-insta', name: 'Instagram', icon: 'instagram', url: 'https://instagram.com/skxielol' },
-    { id: 'sk-discord', name: 'Discord', icon: 'discord', url: 'https://discord.gg/skxie' },
-    { id: 'sk-email', name: 'Email', icon: 'email', url: 'mailto:skxie@contact.com' },
-    { id: 'sk-amazon', name: 'Amazon', icon: 'amazon', url: 'https://amazon.com/author/skxie' },
-    { id: 'sk-goodreads', name: 'Goodreads', icon: 'goodreads', url: 'https://goodreads.com/skxie' },
-    { id: 'sk-wattpad', name: 'Wattpad', icon: 'wattpad', url: 'https://wattpad.com/user/skxielol' },
-    { id: 'sk-stck-me', name: 'Stck Me', icon: 'stck-me', url: 'https://skxielol.stck.me' },
-  ]);
+  const isWhite = bgMode === 'white';
 
   return (
-    <div className="min-h-screen bg-[#0A0A0B] text-[#D1D1D1] font-sans antialiased selection:bg-[#222226] selection:text-white relative overflow-x-hidden">
-      {/* AMBIENT SKY BACKGROUND ANIMATION */}
-      <SkyBackground isNight={true} />
+    <div
+      className={`min-h-screen font-sans antialiased relative overflow-x-hidden transition-colors duration-500 ${
+        isWhite ? 'bg-white text-zinc-900 selection:bg-zinc-200 selection:text-black' : 'bg-[#0A0A0B] text-[#D1D1D1] selection:bg-[#222226] selection:text-white'
+      }`}
+    >
+      {/* BACKGROUND VIDEO ANIMATION */}
+      <VideoBackground
+        bgMode={bgMode}
+        isHomePage={currentView === 'home'}
+        isScrolledDown={isScrolledDown}
+      />
 
       {/* HEADER */}
       <Header
         navItems={navItems}
-        onNavClick={(id) => setCurrentView(id)}
+        isWhite={isWhite}
+        onNavClick={(id) => setCurrentView(id as ViewType)}
         onLogoClick={() => setCurrentView('home')}
       />
 
-      {/* MAIN BODY CANVAS */}
-      {currentView === 'home' && <BlankCanvas />}
-      {currentView === 'about' && (
-        <AboutPage isVisible={true} />
+      {/* MAIN BODY PAGES WITH DYNAMIC THEME PROP */}
+      {currentView === 'home' && (
+        <HomePage
+          isWhite={isWhite}
+          onBookSelect={() => setCurrentView('books')}
+        />
       )}
-      {currentView === 'faqs' && (
-        <FaqsPage isVisible={true} />
+      {currentView === 'books' && <BooksPage isVisible={true} isWhite={isWhite} />}
+      {currentView === 'gallery' && <GalleryPage isVisible={true} isWhite={isWhite} bgMode={bgMode} />}
+      {(currentView === 'about' || currentView === 'faqs') && (
+        <AboutPage isVisible={true} isWhite={isWhite} />
       )}
       {currentView === 'contact' && (
-        <ContactPage isVisible={true} />
+        <ContactPage isVisible={true} isWhite={isWhite} />
       )}
       {currentView === 'newsletter' && (
-        <NewsletterPage isVisible={true} />
+        <NewsletterPage isVisible={true} isWhite={isWhite} />
+      )}
+      {currentView === 'legal' && (
+        <LegalPage isVisible={true} initialTab="privacy" isWhite={isWhite} />
       )}
       {currentView === 'privacy' && (
-        <PrivacyPage isVisible={true} />
+        <LegalPage isVisible={true} initialTab="privacy" isWhite={isWhite} />
       )}
       {currentView === 'terms' && (
-        <TermsPage isVisible={true} />
+        <LegalPage isVisible={true} initialTab="terms" isWhite={isWhite} />
       )}
       {currentView === 'cookies' && (
-        <CookiePolicyPage isVisible={true} />
+        <LegalPage isVisible={true} initialTab="cookies" isWhite={isWhite} />
+      )}
+      {currentView === '404' && (
+        <NotFoundPage
+          isVisible={true}
+          onGoHome={() => setCurrentView('home')}
+          onGoContact={() => setCurrentView('contact')}
+          amazonUrl="https://amazon.com/author/skxie"
+        />
       )}
 
-      {/* FOOTER */}
+      {/* FOOTER WITH ANIMATED DISPLAY TOGGLE (VIDEO DEFAULT -> WHITE -> BLACK) */}
       <Footer
         skxieSocials={skxieSocials}
-        onPrivacyClick={() => setCurrentView('privacy')}
-        onTermsClick={() => setCurrentView('terms')}
-        onCookieClick={() => setCurrentView('cookies')}
-        onFaqsClick={() => setCurrentView('faqs')}
+        bgMode={bgMode}
+        onBgModeChange={(mode) => setBgMode(mode)}
+        onLegalClick={() => setCurrentView('legal')}
         onNewsletterClick={() => setCurrentView('newsletter')}
       />
 
