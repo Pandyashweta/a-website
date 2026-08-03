@@ -16,8 +16,16 @@ export const Header: React.FC<HeaderProps> = ({ navItems, isWhite = false, onNav
 
   const logoSrc = isWhite ? '/skxie-black.png' : '/skxie.png';
 
+  const topGradient = isWhite
+    ? 'from-white via-white/85 to-transparent'
+    : 'from-[#0A0A0B] via-[#0A0A0B]/85 to-transparent';
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 px-4 sm:px-5 md:px-6 flex items-center justify-between bg-transparent border-none pointer-events-none">
+    <>
+      {/* GLOBAL TOP FADE-IN GRADIENT OVERLAY FOR HEADER & MOBILE READABILITY */}
+      <div className={`fixed top-0 left-0 right-0 h-20 sm:h-24 md:h-28 bg-gradient-to-b ${topGradient} z-40 pointer-events-none transition-colors duration-300`} />
+
+      <header className="fixed top-0 left-0 right-0 z-50 h-16 sm:h-20 px-4 sm:px-5 md:px-6 flex items-center justify-between bg-transparent border-none pointer-events-none">
       {/* LEFT SIDE CORNER LOGO WITH SMOOTH ANIMATED LOGO SWITCHING */}
       <div className="flex items-center pointer-events-auto">
         <button
@@ -82,5 +90,6 @@ export const Header: React.FC<HeaderProps> = ({ navItems, isWhite = false, onNav
         </nav>
       </div>
     </header>
-  );
+  </>
+);
 };

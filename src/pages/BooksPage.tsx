@@ -12,13 +12,8 @@ export const BooksPage: React.FC<BooksPageProps> = ({ isVisible, isWhite = false
   const [selectedBook, setSelectedBook] = useState<BookItem | null>(null);
   const [openContentNotes, setOpenContentNotes] = useState<Record<string, boolean>>({});
 
-  if (!isVisible) return null;
-
   const pageTitleColor = isWhite ? 'text-zinc-900' : 'text-white';
   const pageSubColor = isWhite ? 'text-zinc-600' : 'text-zinc-400';
-  const topGradient = isWhite
-    ? 'from-white via-white/80 to-transparent'
-    : 'from-[#0A0A0B] via-[#0A0A0B]/80 to-transparent';
 
   const cardBorder = isWhite
     ? 'border-zinc-300/80'
@@ -36,9 +31,6 @@ export const BooksPage: React.FC<BooksPageProps> = ({ isVisible, isWhite = false
 
   return (
     <>
-      {/* Top Gradient Fade tuned to header bar height */}
-      <div className={`fixed top-0 left-0 right-0 h-16 sm:h-20 bg-gradient-to-b ${topGradient} z-40 pointer-events-none transition-colors duration-300`} />
-
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
