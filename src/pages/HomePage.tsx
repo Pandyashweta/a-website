@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown, ExternalLink, Sparkles, BookOpen } from 'lucide-react';
 import { booksData, BookItem } from '../data/booksData';
+import houseNoQuestionMarkImg from '../assets/books/house-no-.png';
+import toMrGeneralImg from '../assets/books/to-mr-genral.png';
 
 interface HomePageProps {
   isWhite?: boolean;
@@ -42,7 +44,7 @@ export const HomePage: React.FC<HomePageProps> = ({ isWhite = false, onBookSelec
           ======================================================== */}
       <section
         id="section-skxie"
-        className="w-full h-screen flex flex-col items-center justify-center relative px-6 sm:px-12 overflow-hidden select-none"
+        className="w-full h-screen flex flex-col items-center justify-center relative px-6 sm:px-12 overflow-hidden"
       >
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -93,7 +95,7 @@ export const HomePage: React.FC<HomePageProps> = ({ isWhite = false, onBookSelec
           ======================================================== */}
       <section
         id="section-books"
-        className="w-full min-h-screen pt-20 pb-20 px-4 sm:px-8 md:px-12 max-w-2xl mx-auto relative z-10 select-none flex flex-col justify-center items-center space-y-10"
+        className="w-full min-h-screen pt-20 pb-20 px-4 sm:px-8 md:px-12 max-w-2xl sm:max-w-3xl mx-auto relative z-10 flex flex-col justify-center items-center space-y-10"
       >
         {/* SUBTITLE */}
         <div className="text-center pt-2 sm:pt-3">
@@ -111,7 +113,7 @@ export const HomePage: React.FC<HomePageProps> = ({ isWhite = false, onBookSelec
 
             return (
               <div className="space-y-4">
-                <div className="text-center border-b border-zinc-500/20 pb-3">
+                <div className="text-center pb-1">
                   <h3 className={`text-xs sm:text-sm uppercase tracking-[0.25em] font-semibold ${headingColor}`}>
                     COMING SOON
                   </h3>
@@ -127,26 +129,18 @@ export const HomePage: React.FC<HomePageProps> = ({ isWhite = false, onBookSelec
                   {/* BOOK COVER CARD WITH DEEP AMBIENT DROP SHADOW */}
                   <div className={`relative w-full aspect-[2/3] rounded-sm overflow-hidden ${cardBorder} ${bookShadow}`}>
                     <img
-                      src={upcomingBook.coverImage}
+                      src={houseNoQuestionMarkImg}
                       alt={upcomingBook.title}
                       loading="lazy"
                       className="w-full h-full object-cover"
                     />
                   </div>
 
-                  {/* BOOK DETAILS (CENTERED) */}
-                  <div className="space-y-1 text-center px-0.5">
-                    <h4 className={`text-sm sm:text-base font-serif font-bold uppercase tracking-wider line-clamp-1 ${headingColor}`}>
-                      {upcomingBook.title}
-                    </h4>
-                    <p className={`text-xs font-light line-clamp-1 ${mutedText}`}>
-                      {upcomingBook.subtitle}
+                  {/* QUESTION MARK UNDERNEATH POSTER */}
+                  <div className="space-y-1 text-center px-0.5 pt-1">
+                    <p className={`text-xl sm:text-2xl font-serif font-bold tracking-widest ${headingColor}`}>
+                      ?
                     </p>
-                    {upcomingBook.series ? (
-                      <span className="inline-block text-[9px] uppercase tracking-widest font-semibold text-zinc-500">
-                        {upcomingBook.series}
-                      </span>
-                    ) : null}
                   </div>
                 </motion.div>
               </div>
@@ -156,11 +150,10 @@ export const HomePage: React.FC<HomePageProps> = ({ isWhite = false, onBookSelec
           {/* NEW RELEASE (1 FEATURED NEW RELEASE BOOK) */}
           {(() => {
             const newReleaseBook = booksData.find((b) => b.status !== 'Coming Soon') || booksData[0];
-            if (!newReleaseBook) return null;
 
             return (
               <div className="space-y-4">
-                <div className="text-center border-b border-zinc-500/20 pb-3">
+                <div className="text-center pb-1">
                   <h3 className={`text-xs sm:text-sm uppercase tracking-[0.25em] font-semibold ${headingColor}`}>
                     NEW RELEASE
                   </h3>
@@ -176,8 +169,8 @@ export const HomePage: React.FC<HomePageProps> = ({ isWhite = false, onBookSelec
                   {/* BOOK COVER CARD WITH DEEP AMBIENT DROP SHADOW */}
                   <div className={`relative w-full aspect-[2/3] rounded-sm overflow-hidden ${cardBorder} ${bookShadow}`}>
                     <img
-                      src={newReleaseBook.coverImage}
-                      alt={newReleaseBook.title}
+                      src={toMrGeneralImg}
+                      alt="TO MR. GENERAL"
                       loading="lazy"
                       className="w-full h-full object-cover"
                     />
@@ -186,16 +179,11 @@ export const HomePage: React.FC<HomePageProps> = ({ isWhite = false, onBookSelec
                   {/* BOOK DETAILS (CENTERED) */}
                   <div className="space-y-1 text-center px-0.5">
                     <h4 className={`text-sm sm:text-base font-serif font-bold uppercase tracking-wider line-clamp-1 ${headingColor}`}>
-                      {newReleaseBook.title}
+                      TO MR. GENERAL
                     </h4>
                     <p className={`text-xs font-light line-clamp-1 ${mutedText}`}>
-                      {newReleaseBook.subtitle}
+                      A Dark Desi Romance Novel
                     </p>
-                    {newReleaseBook.series ? (
-                      <span className="inline-block text-[9px] uppercase tracking-widest font-semibold text-zinc-500">
-                        {newReleaseBook.series}
-                      </span>
-                    ) : null}
                   </div>
                 </motion.div>
               </div>
