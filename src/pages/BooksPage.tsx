@@ -290,9 +290,6 @@ export const BooksPage: React.FC<BooksPageProps> = ({ isVisible, isWhite = false
 
                   {/* PINTEREST MOODBOARD LINK SECTION */}
                   <div className="pt-6 border-t border-zinc-500/20 space-y-3">
-                    <h4 className={`text-xs uppercase tracking-[0.2em] font-semibold ${pageSubColor}`}>
-                      Aesthetic Mood Board
-                    </h4>
                     <a
                       href="https://in.pinterest.com/skxielol/to-mr-general/"
                       target="_blank"
