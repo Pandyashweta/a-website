@@ -2,9 +2,7 @@ import { NavItem, SocialItem } from '../types';
 
 export const navItemsData: NavItem[] = [
   { id: 'books', label: 'books', url: '#' },
-  { id: 'gallery', label: 'gallery', url: '#' },
   { id: 'about', label: 'about', url: '#' },
-  { id: 'contact', label: 'contact', url: '#' },
 ];
 
 export const socialsData: SocialItem[] = [

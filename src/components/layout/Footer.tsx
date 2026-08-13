@@ -14,6 +14,7 @@ interface FooterProps {
   onCookieClick?: () => void;
   onFaqsClick?: () => void;
   onNewsletterClick?: () => void;
+  onContactClick?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ 
@@ -24,10 +25,19 @@ export const Footer: React.FC<FooterProps> = ({
   onPrivacyClick,
   onTermsClick,
   onCookieClick,
-  onNewsletterClick
+  onNewsletterClick,
+  onContactClick
 }) => {
   const handleLegal = onLegalClick || onPrivacyClick || onTermsClick || onCookieClick;
   const isWhite = bgMode === 'white';
+
+  // Filter out Discord from visible footer socials (Amazon and Goodreads are visible)
+  const hiddenKeys = ['discord'];
+  const visibleSocials = skxieSocials.filter(
+    (social) =>
+      !hiddenKeys.includes(social.icon.toLowerCase()) &&
+      !hiddenKeys.includes(social.name.toLowerCase())
+  );
 
   const footerGradient = isWhite
     ? 'bg-gradient-to-t from-white via-white/95 to-transparent'
@@ -56,7 +66,7 @@ export const Footer: React.FC<FooterProps> = ({
       <div className="w-full flex sm:hidden flex-row items-center justify-between pointer-events-auto z-10">
         {/* Brand Colored Social Icons */}
         <div className="flex flex-row items-center space-x-2.5 flex-nowrap">
-          {skxieSocials.map((social) => (
+          {visibleSocials.map((social) => (
             <a
               key={social.id}
               href={social.url}
@@ -127,7 +137,7 @@ export const Footer: React.FC<FooterProps> = ({
         )}
       </div>
 
-      {/* MOBILE ROW 2: LEGAL & NEWSLETTER (LEFT) & COPYRIGHT (RIGHT) */}
+      {/* MOBILE ROW 2: LEGAL & CONTACT (LEFT) & COPYRIGHT (RIGHT) */}
       <div className="w-full flex sm:hidden flex-row items-center justify-between pointer-events-auto z-10 text-[9px]">
         <div className="flex items-center space-x-2">
           {handleLegal && (
@@ -138,16 +148,27 @@ export const Footer: React.FC<FooterProps> = ({
               Legal
             </button>
           )}
-          {handleLegal && onNewsletterClick && (
+          {handleLegal && onContactClick && (
             <span className="text-zinc-400 select-none">|</span>
           )}
-          {onNewsletterClick && (
+          {onContactClick && (
             <button
-              onClick={onNewsletterClick}
+              onClick={onContactClick}
               className={`uppercase tracking-[0.15em] font-semibold transition-colors focus:outline-none ${textColor}`}
             >
-              Newsletter
+              Contact
             </button>
+          )}
+          {onNewsletterClick && (
+            <>
+              <span className="text-zinc-400 select-none">|</span>
+              <button
+                onClick={onNewsletterClick}
+                className={`uppercase tracking-[0.15em] font-semibold transition-colors focus:outline-none ${textColor}`}
+              >
+                Newsletter
+              </button>
+            </>
           )}
         </div>
 
@@ -161,7 +182,7 @@ export const Footer: React.FC<FooterProps> = ({
           ======================================================== */}
       {/* DESKTOP LEFT: BRAND COLORED SOCIAL LOGOS */}
       <div className="hidden sm:flex flex-row items-center space-x-4 md:space-x-6 pointer-events-auto z-10">
-        {skxieSocials.map((social) => (
+        {visibleSocials.map((social) => (
           <a
             key={social.id}
             href={social.url}
@@ -186,9 +207,9 @@ export const Footer: React.FC<FooterProps> = ({
         &copy; {new Date().getFullYear()} skxie. All Rights Reserved.
       </div>
 
-      {/* DESKTOP RIGHT: LEGAL & NEWSLETTER LINKS FIRST, TOGGLE CAPSULE LAST IN CORNER */}
+      {/* DESKTOP RIGHT: LEGAL & CONTACT LINKS FIRST, TOGGLE CAPSULE LAST IN CORNER */}
       <div className="hidden sm:flex items-center space-x-3 md:space-x-4 pointer-events-auto z-10">
-        {/* LEGAL & NEWSLETTER LINKS */}
+        {/* LEGAL & CONTACT LINKS */}
         <div className="flex items-center space-x-3">
           {handleLegal && (
             <button
@@ -198,16 +219,27 @@ export const Footer: React.FC<FooterProps> = ({
               Legal
             </button>
           )}
-          {handleLegal && onNewsletterClick && (
+          {handleLegal && onContactClick && (
             <span className="text-zinc-400 text-[10px] md:text-[11px] select-none">|</span>
           )}
-          {onNewsletterClick && (
+          {onContactClick && (
             <button
-              onClick={onNewsletterClick}
+              onClick={onContactClick}
               className={`text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-semibold transition-colors duration-300 cursor-pointer focus:outline-none ${textColor}`}
             >
-              Newsletter
+              Contact
             </button>
+          )}
+          {onNewsletterClick && (
+            <>
+              <span className="text-zinc-400 text-[10px] md:text-[11px] select-none">|</span>
+              <button
+                onClick={onNewsletterClick}
+                className={`text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-semibold transition-colors duration-300 cursor-pointer focus:outline-none ${textColor}`}
+              >
+                Newsletter
+              </button>
+            </>
           )}
         </div>
 

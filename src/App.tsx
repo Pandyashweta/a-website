@@ -85,8 +85,8 @@ export default function App() {
 
   return (
     <div
-      className={`min-h-screen font-sans antialiased relative overflow-x-hidden transition-colors duration-500 ${
-        isWhite ? 'bg-white text-zinc-900 selection:bg-zinc-200 selection:text-black' : 'bg-[#0A0A0B] text-[#D1D1D1] selection:bg-[#222226] selection:text-white'
+      className={`min-h-screen font-sans antialiased relative overflow-x-hidden transition-colors duration-500 selection:bg-[#33333E] selection:text-white ${
+        isWhite ? 'bg-white text-zinc-900' : 'bg-[#0A0A0B] text-[#D1D1D1]'
       }`}
     >
       {/* BACKGROUND VIDEO ANIMATION */}
@@ -149,7 +149,7 @@ export default function App() {
         bgMode={bgMode}
         onBgModeChange={(mode) => setBgMode(mode)}
         onLegalClick={() => setCurrentView('legal')}
-        onNewsletterClick={() => setCurrentView('newsletter')}
+        onContactClick={() => setCurrentView('contact')}
       />
 
       {/* COOKIE CONSENT BANNER */}

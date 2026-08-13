@@ -35,3 +35,14 @@ html, body {
   width: 0px;
   height: 0px;
 }
+
+/* Custom Lighter Black / Charcoal Text Selection Highlight */
+::selection {
+  background-color: #33333E;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #33333E;
+  color: #ffffff;
+}
