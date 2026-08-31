@@ -31,8 +31,8 @@ export const Footer: React.FC<FooterProps> = ({
   const handleLegal = onLegalClick || onPrivacyClick || onTermsClick || onCookieClick;
   const isWhite = bgMode === 'white';
 
-  // Filter out Discord from visible footer socials (Amazon and Goodreads are visible)
-  const hiddenKeys = ['discord'];
+  // Filter out Discord, Amazon, and Goodreads from visible footer socials
+  const hiddenKeys = ['discord', 'amazon', 'goodreads'];
   const visibleSocials = skxieSocials.filter(
     (social) =>
       !hiddenKeys.includes(social.icon.toLowerCase()) &&
