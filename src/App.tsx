@@ -84,9 +84,10 @@ const validViews: Record<string, ViewType> = {
 
 const getInitialView = (): ViewType => {
   if (typeof window === 'undefined') return 'home';
-  const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+  const segments = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase().split('/');
+  const lastSegment = segments[segments.length - 1] || '';
   const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
-  const target = hash || path;
+  const target = hash || lastSegment;
   if (target && validViews[target]) {
     return validViews[target];
   }
@@ -138,14 +139,22 @@ export default function App() {
   // Client-side URL Path Routing handling
   useEffect(() => {
     const handleRoute = () => {
-      const path = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+      const segments = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase().split('/');
+      const lastSegment = segments[segments.length - 1] || '';
       const hash = window.location.hash.replace(/^#\/?/, '').toLowerCase();
-      const target = hash || path;
+      const target = hash || lastSegment;
+
+      const isSubpathOrRoot =
+        !lastSegment ||
+        lastSegment === 'index.html' ||
+        lastSegment === 'a-website' ||
+        lastSegment === 'skxie-author-website';
+
       if (target && validViews[target]) {
         setCurrentView(validViews[target]);
-      } else if (!hash && (!path || path === 'index.html')) {
+      } else if (!hash && isSubpathOrRoot) {
         setCurrentView('home');
-      } else if (path && !validViews[path] && path !== 'index.html') {
+      } else if (lastSegment && !validViews[lastSegment] && !isSubpathOrRoot) {
         setCurrentView('404');
       }
     };
