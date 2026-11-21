@@ -14,7 +14,7 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem('skxie_cookie_consent');
+    const consent = localStorage.getItem('arave_cookie_consent');
     if (!consent) {
       const timer = setTimeout(() => setShowBanner(true), 1200);
       return () => clearTimeout(timer);
@@ -22,12 +22,12 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem('skxie_cookie_consent', 'accepted');
+    localStorage.setItem('arave_cookie_consent', 'accepted');
     setShowBanner(false);
   };
 
   const handleDecline = () => {
-    localStorage.setItem('skxie_cookie_consent', 'essential_only');
+    localStorage.setItem('arave_cookie_consent', 'essential_only');
     setShowBanner(false);
   };
 

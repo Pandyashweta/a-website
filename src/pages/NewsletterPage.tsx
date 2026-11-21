@@ -1,24 +1,54 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { CheckCircle2, Mail } from 'lucide-react';
+import { CheckCircle2, Mail, Loader2 } from 'lucide-react';
 
 interface NewsletterPageProps {
   isVisible: boolean;
   isWhite?: boolean;
 }
 
+const DEFAULT_NEWSLETTER_URL = "https://script.google.com/macros/s/AKfycby9aQ4596ogv6jZjQdWYn8Giqiz1uTpa4AWqIB5yLy32U_8GFoK8iz1bLFu3Oe3IBGO/exec";
+
 export const NewsletterPage: React.FC<NewsletterPageProps> = ({ isVisible, isWhite = false }) => {
   const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [newsletterSubscribed, setNewsletterSubscribed] = useState(() => {
-    return typeof window !== 'undefined' && sessionStorage.getItem('skxie_newsletter_subscribed') === 'true';
+    return typeof window !== 'undefined' && sessionStorage.getItem('arave_newsletter_subscribed') === 'true';
   });
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (newsletterEmail) {
-      sessionStorage.setItem('skxie_newsletter_subscribed', 'true');
+    if (!newsletterEmail.trim()) return;
+
+    setIsSubmitting(true);
+    const envUrl = typeof import.meta !== 'undefined'
+      ? (import.meta as any).env?.VITE_NEWSLETTER_FORM_URL
+      : undefined;
+    const formUrl = envUrl || DEFAULT_NEWSLETTER_URL;
+
+    try {
+      const formData = new FormData();
+      formData.append('type', 'newsletter');
+      formData.append('name', 'Newsletter Subscriber');
+      formData.append('email', newsletterEmail.trim());
+      formData.append('source', 'Newsletter Page');
+      formData.append('message', 'Subscribed via Newsletter Page');
+
+      await fetch(formUrl, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors',
+      });
+
+      sessionStorage.setItem('arave_newsletter_subscribed', 'true');
       setNewsletterSubscribed(true);
       setNewsletterEmail('');
+    } catch (err) {
+      console.error('Newsletter submission error:', err);
+      sessionStorage.setItem('arave_newsletter_subscribed', 'true');
+      setNewsletterSubscribed(true);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -80,7 +110,7 @@ export const NewsletterPage: React.FC<NewsletterPageProps> = ({ isVisible, isWhi
             <button
               type="button"
               onClick={() => {
-                sessionStorage.removeItem('skxie_newsletter_subscribed');
+                sessionStorage.removeItem('arave_newsletter_subscribed');
                 setNewsletterEmail('');
                 setNewsletterSubscribed(false);
               }}
@@ -102,14 +132,23 @@ export const NewsletterPage: React.FC<NewsletterPageProps> = ({ isVisible, isWhi
                   required
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
+                  disabled={isSubmitting}
                   className={`w-full pl-10 pr-4 py-3 text-xs border rounded-xl focus:outline-none transition-colors ${inputClass}`}
                 />
               </div>
               <button
                 type="submit"
-                className={`px-6 py-3 active:scale-95 transition-all rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap shadow-sm ${buttonClass}`}
+                disabled={isSubmitting}
+                className={`px-6 py-3 active:scale-95 transition-all rounded-xl text-xs font-semibold cursor-pointer whitespace-nowrap shadow-sm disabled:opacity-50 flex items-center justify-center gap-1.5 ${buttonClass}`}
               >
-                Subscribe
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Joining...</span>
+                  </>
+                ) : (
+                  <span>Subscribe</span>
+                )}
               </button>
             </form>
 

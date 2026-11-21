@@ -1,6 +1,5 @@
 export * from './HomePage';
 export * from './BooksPage';
-export * from './GalleryPage';
 export * from './AboutPage';
 export * from './ContactPage';
 export * from './NewsletterPage';
@@ -9,3 +8,10 @@ export * from './PrivacyPage';
 export * from './TermsPage';
 export * from './CookiePolicyPage';
 export * from './NotFoundPage';
+export * from './ArtBooksPage';
+export * from './MoodBoardPage';
+export * from './PlaylistPage';
+export * from './NotePage';
+export * from './FaqsPage';
+export * from './ComingSoonPage';
+export * from './ContentWarningsPage';

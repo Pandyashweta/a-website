@@ -31,7 +31,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ isVisible, isEmbedded 
       <div className={`text-xs sm:text-sm leading-relaxed space-y-4 ${subColor}`}>
         <div className="space-y-2">
           <p>
-            Welcome to <strong>Skxie</strong> ("we," "our," or "us"). Your privacy is important to us. This Privacy Policy explains what information we collect, how we use it, and your rights when you visit our website.
+            Welcome to <strong>Aravé S.</strong> ("we," "our," or "us"). Your privacy is important to us. This Privacy Policy explains what information we collect, how we use it, and your rights when you visit our website.
           </p>
           <p>
             By using this website, you agree to the practices described in this Privacy Policy.
@@ -41,7 +41,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ isVisible, isEmbedded 
         <div className="space-y-1.5">
           <h3 className={`text-sm tracking-wide ${headingColor}`}>1. About This Website</h3>
           <p>
-            Skxie is a personal author website created to share information about books, writing, projects, and related content. The website may also provide links to third-party platforms where books are published or sold.
+            Aravé S. is a personal author website created to share information about books, writing, projects, and related content. The website may also provide links to third-party platforms where books are published or sold.
           </p>
           <p>
             This website does not directly sell books or process payments.
@@ -85,7 +85,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ isVisible, isEmbedded 
               This information is used for security, performance, and maintaining the website.
             </p>
             <p>
-              At this time, Skxie does <strong>not</strong> use Google Analytics or similar visitor analytics services. If analytics are added in the future, this Privacy Policy will be updated accordingly.
+              At this time, Aravé S. does <strong>not</strong> use Google Analytics or similar visitor analytics services. If analytics are added in the future, this Privacy Policy will be updated accordingly.
             </p>
           </div>
         </div>
@@ -122,7 +122,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ isVisible, isEmbedded 
             Our website may contain links to third-party websites, including online bookstores, publishing platforms, social media platforms, or other external services.
           </p>
           <p>
-            When you leave Skxie, the privacy practices of those websites are governed by their own privacy policies. We encourage you to review those policies before providing personal information.
+            When you leave Aravé S., the privacy practices of those websites are governed by their own privacy policies. We encourage you to review those policies before providing personal information.
           </p>
           <p>
             We are not responsible for the privacy practices or content of third-party websites.
@@ -207,7 +207,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ isVisible, isEmbedded 
             If you have any questions regarding this Privacy Policy or your personal information, please contact:
           </p>
           <p className="mt-1">
-            <strong>Email:</strong> <a href="mailto:skxielol@gmail.com" className="underline font-semibold">skxielol@gmail.com</a>
+            <strong>Email:</strong> <a href="mailto:aravehere@gmail.com" className="underline font-semibold">aravehere@gmail.com</a>
           </p>
         </div>
       </div>

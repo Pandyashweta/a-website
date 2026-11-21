@@ -5,7 +5,7 @@ import { SolidIcon } from './SocialIcons';
 import { Moon, Sun } from 'lucide-react';
 
 interface FooterProps {
-  skxieSocials: SocialItem[];
+  araveSocials: SocialItem[];
   bgMode?: 'black' | 'white';
   onBgModeChange?: (mode: 'black' | 'white') => void;
   onLegalClick?: () => void;
@@ -15,28 +15,31 @@ interface FooterProps {
   onFaqsClick?: () => void;
   onNewsletterClick?: () => void;
   onContactClick?: () => void;
+  onComingSoonClick?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ 
-  skxieSocials,
+  araveSocials,
   bgMode = 'white',
   onBgModeChange,
   onLegalClick,
   onPrivacyClick,
   onTermsClick,
   onCookieClick,
+  onFaqsClick,
   onNewsletterClick,
-  onContactClick
+  onContactClick,
+  onComingSoonClick
 }) => {
   const handleLegal = onLegalClick || onPrivacyClick || onTermsClick || onCookieClick;
   const isWhite = bgMode === 'white';
 
-  // Filter out Discord, Amazon, and Goodreads from visible footer socials
-  const hiddenKeys = ['discord', 'amazon', 'goodreads'];
-  const visibleSocials = skxieSocials.filter(
+  // Filter out Discord from visible footer socials (Amazon and Goodreads are kept with coming soon)
+  const hiddenKeys = ['discord'];
+  const visibleSocials = araveSocials.filter(
     (social) =>
       !hiddenKeys.includes(social.icon.toLowerCase()) &&
-      !hiddenKeys.includes(social.name.toLowerCase())
+      !hiddenKeys.includes(social.id.toLowerCase())
   );
 
   const footerGradient = isWhite
@@ -65,25 +68,40 @@ export const Footer: React.FC<FooterProps> = ({
       {/* MOBILE ROW 1: BRAND COLORED SOCIALS (LEFT) & THEME TOGGLE (FAR RIGHT CORNER) */}
       <div className="w-full flex sm:hidden flex-row items-center justify-between pointer-events-auto z-10">
         {/* Brand Colored Social Icons */}
-        <div className="flex flex-row items-center space-x-2.5 flex-nowrap">
-          {visibleSocials.map((social) => (
-            <a
-              key={social.id}
-              href={social.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={social.name}
-              title={`${social.name} (skxie)`}
-              className="group relative p-1 transition-transform duration-200 hover:scale-125 focus:outline-none cursor-pointer flex-shrink-0"
-            >
-              <SolidIcon
-                type={social.icon}
-                useBrandColors={true}
-                isWhite={isWhite}
-                className="w-4 h-4 transition-all duration-200"
-              />
-            </a>
-          ))}
+        <div className="flex flex-row items-center space-x-1.5 sm:space-x-2 flex-nowrap">
+          {visibleSocials.map((social) => {
+            const isComingSoon =
+              social.icon === 'amazon' ||
+              social.icon === 'goodreads' ||
+              social.url === '#coming-soon';
+
+            return (
+              <a
+                key={social.id}
+                href={isComingSoon ? '#coming-soon' : social.url}
+                target={isComingSoon ? undefined : '_blank'}
+                rel={isComingSoon ? undefined : 'noopener noreferrer'}
+                onClick={
+                  isComingSoon && onComingSoonClick
+                    ? (e) => {
+                        e.preventDefault();
+                        onComingSoonClick();
+                      }
+                    : undefined
+                }
+                aria-label={`${social.name}${isComingSoon ? ' (Coming Soon)' : ''}`}
+                title={`${social.name}${isComingSoon ? ' (Coming Soon)' : ' (Aravé S.)'}`}
+                className="group relative p-1 transition-transform duration-200 hover:scale-125 focus:outline-none cursor-pointer flex-shrink-0"
+              >
+                <SolidIcon
+                  type={social.icon}
+                  useBrandColors={true}
+                  isWhite={isWhite}
+                  className="w-4 h-4 transition-all duration-200"
+                />
+              </a>
+            );
+          })}
         </div>
 
         {/* MOBILE THEME TOGGLE PILL AT FAR RIGHT (BLACK / WHITE 2-MODE) */}
@@ -159,12 +177,28 @@ export const Footer: React.FC<FooterProps> = ({
               Contact
             </button>
           )}
+          {onContactClick && onFaqsClick && (
+            <span className="text-zinc-400 select-none">|</span>
+          )}
+          {onFaqsClick && (
+            <button
+              onClick={onFaqsClick}
+              className={`uppercase tracking-[0.15em] font-semibold transition-colors focus:outline-none ${textColor}`}
+            >
+              FAQs
+            </button>
+          )}
           {onNewsletterClick && (
             <>
               <span className="text-zinc-400 select-none">|</span>
               <button
-                onClick={onNewsletterClick}
-                className={`uppercase tracking-[0.15em] font-semibold transition-colors focus:outline-none ${textColor}`}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onNewsletterClick();
+                }}
+                className={`uppercase tracking-[0.15em] font-semibold transition-colors focus:outline-none cursor-pointer ${textColor}`}
               >
                 Newsletter
               </button>
@@ -173,7 +207,7 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         <div className={`tracking-wider font-medium select-none whitespace-nowrap ${copyrightColor}`}>
-          &copy; {new Date().getFullYear()} skxie. All Rights Reserved.
+          &copy; {new Date().getFullYear()} Aravé S. All Rights Reserved.
         </div>
       </div>
 
@@ -181,30 +215,45 @@ export const Footer: React.FC<FooterProps> = ({
           DESKTOP VIEWPORT ONLY (sm:flex >= 640px)
           ======================================================== */}
       {/* DESKTOP LEFT: BRAND COLORED SOCIAL LOGOS */}
-      <div className="hidden sm:flex flex-row items-center space-x-4 md:space-x-6 pointer-events-auto z-10">
-        {visibleSocials.map((social) => (
-          <a
-            key={social.id}
-            href={social.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={social.name}
-            title={`${social.name} (skxie)`}
-            className="group relative p-1 transition-transform duration-200 hover:scale-125 focus:outline-none cursor-pointer flex-shrink-0"
-          >
-            <SolidIcon
-              type={social.icon}
-              useBrandColors={true}
-              isWhite={isWhite}
-              className="w-5 h-5 transition-all duration-200"
-            />
-          </a>
-        ))}
+      <div className="hidden sm:flex flex-row items-center space-x-2.5 md:space-x-3.5 lg:space-x-4 pointer-events-auto z-10">
+        {visibleSocials.map((social) => {
+          const isComingSoon =
+            social.icon === 'amazon' ||
+            social.icon === 'goodreads' ||
+            social.url === '#coming-soon';
+
+          return (
+            <a
+              key={social.id}
+              href={isComingSoon ? '#coming-soon' : social.url}
+              target={isComingSoon ? undefined : '_blank'}
+              rel={isComingSoon ? undefined : 'noopener noreferrer'}
+              onClick={
+                isComingSoon && onComingSoonClick
+                  ? (e) => {
+                      e.preventDefault();
+                      onComingSoonClick();
+                    }
+                  : undefined
+              }
+              aria-label={`${social.name}${isComingSoon ? ' (Coming Soon)' : ''}`}
+              title={`${social.name}${isComingSoon ? ' (Coming Soon)' : ' (Aravé S.)'}`}
+              className="group relative p-1 transition-transform duration-200 hover:scale-125 focus:outline-none cursor-pointer flex-shrink-0"
+            >
+              <SolidIcon
+                type={social.icon}
+                useBrandColors={true}
+                isWhite={isWhite}
+                className="w-5 h-5 transition-all duration-200"
+              />
+            </a>
+          );
+        })}
       </div>
 
       {/* DESKTOP CENTER: COPYRIGHT NOTICE */}
       <div className={`pointer-events-auto text-[10px] md:text-[11px] tracking-wider font-medium select-none whitespace-nowrap hidden sm:block absolute left-1/2 -translate-x-1/2 z-0 ${copyrightColor}`}>
-        &copy; {new Date().getFullYear()} skxie. All Rights Reserved.
+        &copy; {new Date().getFullYear()} Aravé S. All Rights Reserved.
       </div>
 
       {/* DESKTOP RIGHT: LEGAL & CONTACT LINKS FIRST, TOGGLE CAPSULE LAST IN CORNER */}
@@ -230,11 +279,27 @@ export const Footer: React.FC<FooterProps> = ({
               Contact
             </button>
           )}
+          {onContactClick && onFaqsClick && (
+            <span className="text-zinc-400 text-[10px] md:text-[11px] select-none">|</span>
+          )}
+          {onFaqsClick && (
+            <button
+              onClick={onFaqsClick}
+              className={`text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-semibold transition-colors duration-300 cursor-pointer focus:outline-none ${textColor}`}
+            >
+              FAQs
+            </button>
+          )}
           {onNewsletterClick && (
             <>
               <span className="text-zinc-400 text-[10px] md:text-[11px] select-none">|</span>
               <button
-                onClick={onNewsletterClick}
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  onNewsletterClick();
+                }}
                 className={`text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-semibold transition-colors duration-300 cursor-pointer focus:outline-none ${textColor}`}
               >
                 Newsletter

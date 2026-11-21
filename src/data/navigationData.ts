@@ -2,14 +2,16 @@ import { NavItem, SocialItem } from '../types';
 
 export const navItemsData: NavItem[] = [
   { id: 'books', label: 'books', url: '#' },
+  { id: 'extras', label: 'extras', url: '#' },
   { id: 'about', label: 'about', url: '#' },
 ];
 
 export const socialsData: SocialItem[] = [
-  { id: 'sk-wattpad', name: 'Wattpad', icon: 'wattpad', url: 'https://wattpad.com/user/skxielol' },
-  { id: 'sk-stck-me', name: 'Stck Me', icon: 'stck-me', url: 'https://skxielol.stck.me' },
-  { id: 'sk-amazon', name: 'Amazon', icon: 'amazon', url: 'https://amazon.com/author/skxie' },
-  { id: 'sk-goodreads', name: 'Goodreads', icon: 'goodreads', url: 'https://goodreads.com/skxie' },
-  { id: 'sk-insta', name: 'Instagram', icon: 'instagram', url: 'https://instagram.com/skxielol' },
-  { id: 'sk-discord', name: 'Discord', icon: 'discord', url: 'https://discord.gg/skxie' },
+  { id: 'arave-wattpad', name: 'Wattpad', icon: 'wattpad', url: 'https://www.wattpad.com/user/Araveink' },
+  { id: 'arave-stck-me', name: 'Stck Me', icon: 'stck-me', url: 'https://aravé.stck.me' },
+  { id: 'arave-insta', name: 'Instagram', icon: 'instagram', url: 'https://www.instagram.com/araveink/' },
+  { id: 'arave-pinterest', name: 'Pinterest', icon: 'pinterest', url: 'https://in.pinterest.com/AuthorArave/' },
+  { id: 'arave-email', name: 'Email', icon: 'email', url: 'mailto:aravehere@gmail.com' },
+  { id: 'arave-amazon', name: 'Amazon', icon: 'amazon', url: '#coming-soon' },
+  { id: 'arave-goodreads', name: 'Goodreads', icon: 'goodreads', url: '#coming-soon' },
 ];

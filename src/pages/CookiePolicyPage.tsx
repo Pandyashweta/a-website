@@ -31,7 +31,7 @@ export const CookiePolicyPage: React.FC<CookiePolicyPageProps> = ({ isVisible, i
       <div className={`text-xs sm:text-sm leading-relaxed space-y-4 ${subColor}`}>
         <div className="space-y-2">
           <p>
-            This Cookie Policy explains how <strong>Skxie</strong> ("we," "our," or "us") uses cookies and similar technologies when you visit our website.
+            This Cookie Policy explains how <strong>Aravé S.</strong> ("we," "our," or "us") uses cookies and similar technologies when you visit our website.
           </p>
         </div>
 
@@ -63,7 +63,7 @@ export const CookiePolicyPage: React.FC<CookiePolicyPageProps> = ({ isVisible, i
           <div className="space-y-1.5">
             <h4 className={`text-xs uppercase tracking-wider ${headingColor}`}>Analytics & Performance Cookies</h4>
             <p>
-              At this time, <strong>Skxie does not use analytics cookies</strong> or third-party tracking scripts (such as Google Analytics or Meta Pixel).
+              At this time, <strong>Aravé S. does not use analytics cookies</strong> or third-party tracking scripts (such as Google Analytics or Meta Pixel).
             </p>
             <p>
               If analytics or performance services are introduced in the future, this policy will be updated immediately, and visitors will be prompted for consent.
@@ -92,8 +92,8 @@ export const CookiePolicyPage: React.FC<CookiePolicyPageProps> = ({ isVisible, i
           <h3 className={`text-sm tracking-wide ${headingColor}`}>4. Contact Us</h3>
           <p>
             If you have any questions about our Cookie Policy or privacy practices, feel free to contact us directly at{' '}
-            <a href="mailto:skxielol@gmail.com" className="underline font-semibold">
-              skxielol@gmail.com
+            <a href="mailto:aravehere@gmail.com" className="underline font-semibold">
+              aravehere@gmail.com
             </a>.
           </p>
         </div>

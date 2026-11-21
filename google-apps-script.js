@@ -1,62 +1,91 @@
 /**
- * Google Apps Script to handle Contact Form Submissions for skxie
+ * Google Apps Script for Aravé S. (Handles both Contact Form and Newsletter)
  * 
- * Instructions:
- * 1. Open your Google Sheet: https://docs.google.com/spreadsheets/d/1FnZTHodmIi9ia4wZoLwEbdWTchfWavb9gnTwrhOBRUc/edit
- * 2. Click "Extensions" > "Apps Script" in the top menu.
- * 3. Delete any default code in Code.gs and paste this entire script.
- * 4. Click the Save icon (floppy disk).
- * 5. Click "Deploy" > "New Deployment" (top-right).
- * 6. Click the gear icon next to "Select type" and choose "Web app".
- * 7. Set settings:
- *    - Description: "skxie website contact submissions"
- *    - Execute as: "Me (your-gmail-account)"
- *    - Who has access: "Anyone"  <-- IMPORTANT: Set this to "Anyone" so the website can submit messages.
- * 8. Click "Deploy" and authorize the script permissions.
- * 9. Copy the generated "Web app URL" (ends with /exec).
- * 10. Paste this URL into your website's `.env` file as VITE_CONTACT_FORM_URL.
+ * Spreadsheets:
+ * - Contact Messages: https://docs.google.com/spreadsheets/d/1tGt-NxZh5r5y30THRJN4vb_3zeKgHgsKrrj-4MQ9RRE/edit
+ * - Newsletter Subscribers: https://docs.google.com/spreadsheets/d/1WWM3cGK5SlWrgApE0fWCLXMO5hmSscMlQrtCakYq9Bc/edit
  */
 
 function doPost(e) {
-  // Spreadsheet ID
-  var SPREADSHEET_ID = "1FnZTHodmIi9ia4wZoLwEbdWTchfWavb9gnTwrhOBRUc";
-  var DESTINATION_EMAIL = "skxielol@gmail.com";
+  var CONTACT_SPREADSHEET_ID = "1tGt-NxZh5r5y30THRJN4vb_3zeKgHgsKrrj-4MQ9RRE";
+  var NEWSLETTER_SPREADSHEET_ID = "1WWM3cGK5SlWrgApE0fWCLXMO5hmSscMlQrtCakYq9Bc";
+  var DESTINATION_EMAIL = "aravehere@gmail.com";
   
   try {
-    var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
-    
-    // Parse parameters (supports both Form POST and JSON POST formats)
+    var type = "";
     var name = "";
     var email = "";
     var message = "";
+    var source = "Website";
     
+    // Parse form parameters
     if (e && e.parameter) {
+      type = e.parameter.type || "";
       name = e.parameter.name || "";
       email = e.parameter.email || "";
       message = e.parameter.message || "";
+      source = e.parameter.source || source;
     }
     
+    // Parse JSON payload if sent as application/json
     if (e && e.postData && e.postData.contents) {
       try {
         var json = JSON.parse(e.postData.contents);
+        type = json.type || type;
         name = json.name || name;
         email = json.email || email;
         message = json.message || message;
-      } catch (jsonErr) {
-        // Fallback if not standard JSON
-      }
+        source = json.source || source;
+      } catch (jsonErr) {}
     }
     
-    // Auto-setup headers if sheet is empty
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(["Timestamp", "Name", "Email", "Message"]);
-    }
-    
-    // Append submission row to sheet
     var timestamp = new Date();
-    sheet.appendRow([timestamp, name, email, message]);
+
+    // ========================================================
+    // CASE 1: NEWSLETTER SUBSCRIPTION
+    // ========================================================
+    if (type === "newsletter" || name === "Newsletter Subscriber") {
+      var newsletterSheet = SpreadsheetApp.openById(NEWSLETTER_SPREADSHEET_ID).getActiveSheet();
+      
+      // Auto-create header if empty
+      if (newsletterSheet.getLastRow() === 0) {
+        newsletterSheet.appendRow(["Timestamp", "Email", "Source"]);
+        newsletterSheet.getRange(1, 1, 1, 3).setFontWeight("bold");
+      }
+      
+      newsletterSheet.appendRow([timestamp, email, source || message || "Website Newsletter"]);
+      
+      // Optional notification to author
+      try {
+        MailApp.sendEmail({
+          to: DESTINATION_EMAIL,
+          subject: "💌 New Newsletter Subscriber: " + email,
+          htmlBody: "<div style='font-family:sans-serif;padding:20px;'>" +
+                    "<h2>New Newsletter Subscriber!</h2>" +
+                    "<p><strong>Email:</strong> " + email + "</p>" +
+                    "<p><strong>Source:</strong> " + (source || message) + "</p>" +
+                    "<p><strong>Date:</strong> " + timestamp.toLocaleString() + "</p>" +
+                    "</div>"
+        });
+      } catch (mailErr) {}
+      
+      return ContentService.createTextOutput(JSON.stringify({ result: "success", type: "newsletter" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // ========================================================
+    // CASE 2: CONTACT FORM MESSAGE
+    // ========================================================
+    var contactSheet = SpreadsheetApp.openById(CONTACT_SPREADSHEET_ID).getActiveSheet();
     
-    // Send email notification
+    if (contactSheet.getLastRow() === 0) {
+      contactSheet.appendRow(["Timestamp", "Name", "Email", "Message"]);
+      contactSheet.getRange(1, 1, 1, 4).setFontWeight("bold");
+    }
+    
+    contactSheet.appendRow([timestamp, name, email, message]);
+    
+    // Send email notification for contact message
     var htmlBody = 
       "<div style='font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif; max-width: 550px; margin: 0 auto; padding: 24px; border: 1px solid #eaeaea; border-radius: 10px; background-color: #ffffff; box-shadow: 0 4px 12px rgba(0,0,0,0.03);'>" +
         "<div style='border-bottom: 1px solid #eaeaea; padding-bottom: 16px; margin-bottom: 20px;'>" +
@@ -73,7 +102,7 @@ function doPost(e) {
           "<div style='color: #333333; font-size: 14px; line-height: 1.6; white-space: pre-wrap; word-break: break-word;'>" + message + "</div>" +
         "</div>" +
         "<div style='border-top: 1px solid #eaeaea; padding-top: 14px; font-size: 11px; color: #888888; text-align: center;'>" +
-          "This submission has been logged automatically in your Google Sheet." +
+          "This submission has been logged automatically in your Contact Google Sheet." +
         "</div>" +
       "</div>";
 
@@ -84,11 +113,16 @@ function doPost(e) {
       htmlBody: htmlBody
     });
     
-    return ContentService.createTextOutput(JSON.stringify({ result: "success" }))
-                         .setMimeType(ContentService.MimeType.JSON);
+    return ContentService.createTextOutput(JSON.stringify({ result: "success", type: "contact" }))
+      .setMimeType(ContentService.MimeType.JSON);
                          
   } catch (error) {
     return ContentService.createTextOutput(JSON.stringify({ result: "error", error: error.toString() }))
-                         .setMimeType(ContentService.MimeType.JSON);
+      .setMimeType(ContentService.MimeType.JSON);
   }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({ status: "active", message: "Aravé S. Form API is working!" }))
+    .setMimeType(ContentService.MimeType.JSON);
 }

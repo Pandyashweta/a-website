@@ -31,7 +31,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible, isEmbedded = fa
       <div className={`text-xs sm:text-sm leading-relaxed space-y-4 ${subColor}`}>
         <div className="space-y-2">
           <p>
-            Welcome to <strong>Skxie</strong> ("Website," "we," "our," or "us"). By accessing or using this website, you agree to these Terms & Conditions. If you do not agree with these terms, please do not use this website.
+            Welcome to <strong>Aravé S.</strong> ("Website," "we," "our," or "us"). By accessing or using this website, you agree to these Terms & Conditions. If you do not agree with these terms, please do not use this website.
           </p>
         </div>
 
@@ -45,7 +45,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible, isEmbedded = fa
         <div className="space-y-1.5">
           <h3 className={`text-sm tracking-wide ${headingColor}`}>2. About the Website & Services</h3>
           <p>
-            Skxie is a personal author website designed to provide updates, information, and links related to books, writing projects, and creative content.
+            Aravé S. is a personal author website designed to provide updates, information, and links related to books, writing projects, and creative content.
           </p>
           <p>
             The website may link to third-party platforms (such as Amazon, Wattpad, Goodreads, or online retailers) where books or content can be read or purchased.
@@ -58,7 +58,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible, isEmbedded = fa
         <div className="space-y-1.5">
           <h3 className={`text-sm tracking-wide ${headingColor}`}>3. Intellectual Property Rights</h3>
           <p>
-            All content on this website—including text, graphics, logos, images, book covers, excerpts, trademarks, and overall design—is the intellectual property of Skxie, unless otherwise stated.
+            All content on this website—including text, graphics, logos, images, book covers, excerpts, trademarks, and overall design—is the intellectual property of Aravé S., unless otherwise stated.
           </p>
           <p>
             You may not copy, reproduce, distribute, modify, publish, transmit, or create derivative works from any content on this website without explicit written permission.
@@ -100,7 +100,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible, isEmbedded = fa
         <div className="space-y-1.5">
           <h3 className={`text-sm tracking-wide ${headingColor}`}>7. Limitation of Liability</h3>
           <p>
-            To the fullest extent permitted by applicable law, Skxie shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from your access to or use of this website.
+            To the fullest extent permitted by applicable law, Aravé S. shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from your access to or use of this website.
           </p>
         </div>
 
@@ -148,7 +148,7 @@ export const TermsPage: React.FC<TermsPageProps> = ({ isVisible, isEmbedded = fa
             If you have any questions regarding these Terms & Conditions, please contact:
           </p>
           <p className="mt-1">
-            <strong>Email:</strong> <a href="mailto:skxielol@gmail.com" className="underline font-semibold">skxielol@gmail.com</a>
+            <strong>Email:</strong> <a href="mailto:aravehere@gmail.com" className="underline font-semibold">aravehere@gmail.com</a>
           </p>
         </div>
       </div>
