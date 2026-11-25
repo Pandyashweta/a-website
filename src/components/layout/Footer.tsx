@@ -61,12 +61,12 @@ export const Footer: React.FC<FooterProps> = ({
   };
 
   return (
-    <footer className={`fixed bottom-0 left-0 right-0 z-50 pointer-events-none px-4 sm:px-5 md:px-6 pt-2.5 pb-3.5 sm:py-0 h-auto sm:h-20 flex flex-col sm:flex-row items-center justify-between gap-2.5 sm:gap-0 transition-colors duration-300 ${footerGradient}`}>
+    <footer className={`fixed bottom-0 left-0 right-0 z-50 pointer-events-none px-4 min-[1160px]:px-6 pt-2.5 pb-3.5 min-[1160px]:py-0 h-auto min-[1160px]:h-20 flex flex-col min-[1160px]:flex-row items-center justify-between gap-2.5 min-[1160px]:gap-0 transition-colors duration-300 ${footerGradient}`}>
       {/* ========================================================
           MOBILE VIEWPORT ONLY (< sm)
           ======================================================== */}
       {/* MOBILE ROW 1: BRAND COLORED SOCIALS (LEFT) & THEME TOGGLE (FAR RIGHT CORNER) */}
-      <div className="w-full flex sm:hidden flex-row items-center justify-between pointer-events-auto z-10">
+      <div className="w-full flex min-[1160px]:hidden flex-row items-center justify-between pointer-events-auto z-10">
         {/* Brand Colored Social Icons */}
         <div className="flex flex-row items-center space-x-1.5 sm:space-x-2 flex-nowrap">
           {visibleSocials.map((social) => {
@@ -156,8 +156,8 @@ export const Footer: React.FC<FooterProps> = ({
       </div>
 
       {/* MOBILE ROW 2: LEGAL & CONTACT (LEFT) & COPYRIGHT (RIGHT) */}
-      <div className="w-full flex sm:hidden flex-row items-center justify-between pointer-events-auto z-10 text-[9px]">
-        <div className="flex items-center space-x-2">
+      <div className="w-full flex min-[1160px]:hidden flex-row flex-wrap items-center justify-between gap-x-3 gap-y-1 pointer-events-auto z-10 text-[9px] sm:text-[10px]">
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
           {handleLegal && (
             <button
               onClick={handleLegal}
@@ -206,7 +206,7 @@ export const Footer: React.FC<FooterProps> = ({
           )}
         </div>
 
-        <div className={`tracking-wider font-medium select-none whitespace-nowrap ${copyrightColor}`}>
+        <div className={`ml-auto tracking-wider font-medium select-none whitespace-nowrap ${copyrightColor}`}>
           &copy; {new Date().getFullYear()} Aravé S. All Rights Reserved.
         </div>
       </div>
@@ -215,7 +215,7 @@ export const Footer: React.FC<FooterProps> = ({
           DESKTOP VIEWPORT ONLY (sm:flex >= 640px)
           ======================================================== */}
       {/* DESKTOP LEFT: BRAND COLORED SOCIAL LOGOS */}
-      <div className="hidden sm:flex flex-row items-center space-x-2.5 md:space-x-3.5 lg:space-x-4 pointer-events-auto z-10">
+      <div className="hidden min-[1160px]:flex flex-row items-center space-x-2.5 md:space-x-3.5 min-[1160px]:space-x-4 pointer-events-auto z-10">
         {visibleSocials.map((social) => {
           const isComingSoon =
             social.icon === 'amazon' ||
@@ -252,12 +252,12 @@ export const Footer: React.FC<FooterProps> = ({
       </div>
 
       {/* DESKTOP CENTER: COPYRIGHT NOTICE */}
-      <div className={`pointer-events-auto text-[10px] md:text-[11px] tracking-wider font-medium select-none whitespace-nowrap hidden sm:block absolute left-1/2 -translate-x-1/2 z-0 ${copyrightColor}`}>
+      <div className={`pointer-events-auto text-[10px] md:text-[11px] tracking-wider font-medium select-none whitespace-nowrap hidden min-[1160px]:block absolute left-1/2 -translate-x-1/2 z-0 ${copyrightColor}`}>
         &copy; {new Date().getFullYear()} Aravé S. All Rights Reserved.
       </div>
 
       {/* DESKTOP RIGHT: LEGAL & CONTACT LINKS FIRST, TOGGLE CAPSULE LAST IN CORNER */}
-      <div className="hidden sm:flex items-center space-x-3 md:space-x-4 pointer-events-auto z-10">
+      <div className="hidden min-[1160px]:flex items-center space-x-3 md:space-x-4 pointer-events-auto z-10">
         {/* LEGAL & CONTACT LINKS */}
         <div className="flex items-center space-x-3">
           {handleLegal && (
