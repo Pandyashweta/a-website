@@ -366,6 +366,7 @@ export default function App() {
 
       {/* COOKIE CONSENT BANNER */}
       <CookieBanner 
+        isWhite={isWhite}
         onNavigateToPrivacy={() => setCurrentView('privacy')} 
         onNavigateToCookiePolicy={() => setCurrentView('cookies')}
       />
